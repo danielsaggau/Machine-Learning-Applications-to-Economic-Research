@@ -1,0 +1,24 @@
+---
+title: "The Mortalility and Medical Costs of Air Pollution: Evidence from Changes in Wind Direction"
+author: "Review by: Daniel Saggau"
+output: pdf_document
+fontsize: 12 pt
+linestretch: 1.5
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction 
+
+Paper uses heteorgenous treatment effect and generic machine learning inference. 
+Mortality in elderly population 25% are effected.
+Conduct first large scale quasi experimental investigation on health care use and medical case. 
+Wind direction as an IV identification strategy. 
+Mortality displacement as problem with identification.
+
+Use cox-lasso model as further model.
+
+# Conclusion 
+
