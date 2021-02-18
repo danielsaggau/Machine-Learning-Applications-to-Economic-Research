@@ -2,7 +2,6 @@
 title: "**The Mortalility and Medical Costs of Air Pollution- Review**"
 author: 
 - "Author: Daniel Saggau — daniel.saggau@campus.lmu.de"
-- "*Department of Statistics*, Ludwig Maximilian University Munich, Germany"
 - "Supervisor: Nadzeya Laurentsyeva"
 date: "15/03/2021"
 output: 
