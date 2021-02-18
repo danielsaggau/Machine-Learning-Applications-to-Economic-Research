@@ -1,9 +1,17 @@
 ---
-title: "The Mortalility and Medical Costs of Air Pollution: Evidence from Changes in Wind Direction"
-author: "Review by: Daniel Saggau"
-output: pdf_document
+title: "**The Mortalility and Medical Costs of Air Pollution: Evidence from Changes in Wind Direction**"
+author: 
+- "Author: Daniel Saggau — daniel.saggau@campus.lmu.de"
+- "*Department of Statistics*, Ludwig Maximilian University Munich, Germany"
+- "Supervisor: Nadzeya Laurentsyeva"
+date: "15/03/2021"
+output: 
+  pdf_document:
+    number_sections: true
 fontsize: 12 pt
 linestretch: 1.5
+citation_package: --biblatex
+nocite: '@*'
 ---
 
 ```{r setup, include=FALSE}
