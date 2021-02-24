@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduction 
 
-Paper uses heteorgenous treatment effect and generic machine learning inference. 
+Paper uses heterogeneous treatment effect and generic machine learning inference. 
 Mortality in elderly population 25% are effected.
 Conduct first large scale quasi experimental investigation on health care use and medical case. 
 Wind direction as an IV identification strategy. 
@@ -27,18 +27,10 @@ Mortality displacement as problem with identification.
 
 Use cox-lasso model as further model.
 
-- Shortcoming: External validity 
-- Perhaps also unable to capture interconnection of other factors in other external cases
-- Model evaluation for ML method not SOTA
-- Bayesian Estimation (probabilistic modelling)
-
-Added value ML here: Prediction of pollution
-
-
 # Literature Review 
 
 
-# Method 
+# Method used in the Paper 
 
 3 pillars: 
 
@@ -60,7 +52,25 @@ Added value ML here: Prediction of pollution
 
 ## Treatment Effect Heterogeneity
 
+### Criticism: 
 
+- Shortcoming: External validity 
+- Model evaluation for ML method not SOTA
+- Bayesian Estimation (probabilistic modelling)
+- Added value ML here: Prediction of pollution
+
+### Model evaluation for ML 
+
+* c-index 
+* brier-score 
+
+## Modification or difference it may have made
+
+### Usage of OLS regression 
+
+* Usage of regularized method for machine learning method but not for main regression 
+* PLS for regular regression for transparent feature selection rather than p-value hacking 
+* Also possible to model with bayesian approach, allowing for more insightsful information rather than point estimate 
 
 # Conclusion 
 
@@ -68,3 +78,4 @@ Additional Variation via estimation of life expectancy.
 Using heterogeneous treatment effect on quasi-experiment. 
 Suggest that life expectancy models vulnerability to air pollution exposure. 
 
+# References
