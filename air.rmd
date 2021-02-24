@@ -27,5 +27,44 @@ Mortality displacement as problem with identification.
 
 Use cox-lasso model as further model.
 
+- Shortcoming: External validity 
+- Perhaps also unable to capture interconnection of other factors in other external cases
+- Model evaluation for ML method not SOTA
+- Bayesian Estimation (probabilistic modelling)
+
+Added value ML here: Prediction of pollution
+
+
+# Literature Review 
+
+
+# Method 
+
+3 pillars: 
+
+- Mortality and health care use
+- Life-Years Lost 
+- Treatment Effect Heterogeneity
+
+## Mortality and health care use
+
+* Dependent Variables: health care use, health care spending and net of any confounding factors 
+* Include FE: country level, state by month level and month by year level 
+* Cluster all standard errors at country level and weight all estimates by population for per captia dependent variables. 
+* Robustness to different clustering choices. 
+* IV- Strategy: Daily wind direction varying by geography 
+
+## Life-Years Lost 
+
+* Unsupervised learning (cluster analysis) to group pollution effect by county across the US.
+
+## Treatment Effect Heterogeneity
+
+
+
 # Conclusion 
+
+Additional Variation via estimation of life expectancy. 
+Using heterogeneous treatment effect on quasi-experiment. 
+Suggest that life expectancy models vulnerability to air pollution exposure. 
 
