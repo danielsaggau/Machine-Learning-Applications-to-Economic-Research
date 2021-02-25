@@ -77,13 +77,12 @@ Use cox-lasso model as further model.
 - monotonicity assumption 
 - Robustness not really complete and more transparency needed 
 - Potentially 
+- Contribution ML algorithm 
 
 ### Model evaluation for ML 
 
 Traditionally, the way to assess prediction quality  is not simply  comparing the expectancies.
 For more robustness, usally one compares the different thresholds of the data (25, 50, 75 quantile percentage).
-
-
 
 * c-index 
 * brier-score 
@@ -99,6 +98,18 @@ For more robustness, usally one compares the different thresholds of the data (2
 * Usage of regularized method for machine learning method but not for main regression 
 * PLS for regular regression for transparent feature selection rather than p-value hacking 
 * Also possible to model with bayesian approach, allowing for more insightsful information rather than point estimate 
+
+### Importance ML method 
+
+* Here generic machine learning inference is used for subsequent HTE analysis. 
+* Inevitably, one should consider the actual contribution of this method. 
+* Novel machine learning method here lead to lower expected prediction of life expectancy. 
+* Unfortunately, it is largely unclear whether these lower predictions are actually a more accurate representation of actual survival, or whether these score are simply lower. 
+* As mentioned, to actually get a more comprehensive performance evaluation
+* Would have been more interesting using causal RF or other machine learning methods compared to OLS as opposed to generic ml inference for a subsequent 
+* Instead this paper relies very heavily on traditionally econometric tools for statistical inference, adding little by introducing machine learning into their study. 
+* This does not imply that machine learning are not applicable here, solely that the contribution made here is marginal as compared to what it could have been
+* 
 
 # Conclusion 
 
