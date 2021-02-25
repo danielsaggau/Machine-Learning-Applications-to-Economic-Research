@@ -48,9 +48,25 @@ Use cox-lasso model as further model.
 
 ## Life-Years Lost 
 
+* Statistical value of Life
+* Counterfactual life expectancy is unobserved
+* All previous studies use either counterfactuual life exepectancy via population life tables 
+* Or: Using estimation change in cause and age specific mortaility over time (here argue all prior studies only use age and sex but here we are using preconditions)
+* Problem: Disentangle affect by pollution 
+* Solution: using rich set of different health and non-health characteristics 
+* left censored data (use cox ph model to estimate)
+
 * Unsupervised learning (cluster analysis) to group pollution effect by county across the US.
+* 
 
 ## Treatment Effect Heterogeneity
+
+* CDDF by Chernozhukov
+* Best linear predictor of conditional average treatment effect under general conditions
+* Computational constraints, making it unable to unclude country, state-by-month and ,month-by-year fixed effects in our regression 
+* Instead use month, year and division fixed effects 
+* Using subgroups to estimate equations and average (using 250 subsets)
+* Gradient boosted decision tree
 
 ### Criticism: 
 
@@ -58,13 +74,25 @@ Use cox-lasso model as further model.
 - Model evaluation for ML method not SOTA
 - Bayesian Estimation (probabilistic modelling)
 - Added value ML here: Prediction of pollution
+- monotonicity assumption 
+- Robustness not really complete and more transparency needed 
+- Potentially 
 
 ### Model evaluation for ML 
+
+Traditionally, the way to assess prediction quality  is not simply  comparing the expectancies.
+For more robustness, usally one compares the different thresholds of the data (25, 50, 75 quantile percentage).
+
+
 
 * c-index 
 * brier-score 
 
 ## Modification or difference it may have made
+
+* Choice of survival random forest unclear ()
+* Random forest objective is prediction while lasso is more statistically grounded and there for explanation
+* Only comparing non-parametric and parametric models 
 
 ### Usage of OLS regression 
 
