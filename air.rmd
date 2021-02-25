@@ -29,6 +29,19 @@ Use cox-lasso model as further model.
 
 # Literature Review 
 
+# Data 
+
+## Air Pollution 
+
+* 
+
+## Athmospheric Conditions 
+
+* 
+
+## Mortality, Morbidity and Medical Costs 
+
+* 
 
 # Method used in the Paper 
 
@@ -111,6 +124,13 @@ For more robustness, usally one compares the different thresholds of the data (2
 * This does not imply that machine learning are not applicable here, solely that the contribution made here is marginal as compared to what it could have been
 * 
 
+### Unanswered Questions 
+
+* Only disentangle effect in old population 
+* Long-run effect or immediate effect? 
+* Are we really capturing immediate repercussions caused by pollution
+* Causality questions always challenging 
+
 # Conclusion 
 
 Additional Variation via estimation of life expectancy. 
@@ -118,3 +138,5 @@ Using heterogeneous treatment effect on quasi-experiment.
 Suggest that life expectancy models vulnerability to air pollution exposure. 
 
 # References
+
+
