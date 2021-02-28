@@ -33,7 +33,8 @@ Use cox-lasso model as further model.
 
 ## Air Pollution 
 
-* 
+* Data on various different pollution types 
+* PM 2.5 is most robust measure 
 
 ## Athmospheric Conditions 
 
@@ -41,6 +42,7 @@ Use cox-lasso model as further model.
 
 ## Mortality, Morbidity and Medical Costs 
 
+* Looking at population of 65 and above 
 * 
 
 # Method used in the Paper 
@@ -69,8 +71,17 @@ Use cox-lasso model as further model.
 * Solution: using rich set of different health and non-health characteristics 
 * left censored data (use cox ph model to estimate)
 
+* There are various way to define statistical value of life. 
+* Examples include: Excess death, hazard fraction, relative risk, premature deaths, attributable deaths. 
+* These various notions of statistical value in itself offer variety to create an estimate for exposure.
+* Here, we are only looking at very few comparisons, without actually even comparing actual performance of these measures.
+* Henceforth it is somewhat speculative to argue one way or another. 
+* Irrespective, it is not unlikely that there is also variation in these different estimates.
+* Solely based on the research presented in this paper, one cannot exclude that the chosen measure was cherry picked to ensure significance. 
+* Inevitably, absence of proof and proof of absence are not the same. 
+* One cannot know by merely looking at the values whether it would have changed anything but it surely would have added considerable robustness, allowing for different values of statistical life measures rather than focusing entirely on estimates prediction scores without ever evaluating their performance. 
+
 * Unsupervised learning (cluster analysis) to group pollution effect by county across the US.
-* 
 
 ## Treatment Effect Heterogeneity
 
@@ -124,6 +135,13 @@ For more robustness, usally one compares the different thresholds of the data (2
 * This does not imply that machine learning are not applicable here, solely that the contribution made here is marginal as compared to what it could have been
 * 
 
+
+### Discourse Double Machine Learning vs Generic Machine Learning 
+
+* Performance Random Forest 
+* 
+
+
 ### Unanswered Questions 
 
 * Only disentangle effect in old population 
@@ -139,4 +157,6 @@ Suggest that life expectancy models vulnerability to air pollution exposure.
 
 # References
 
+Deryugina, T., Heutel, G., Miller, N. H., Molitor, D., & Reif, J. (2019). The mortality and medical costs of air pollution: Evidence from changes in wind direction. American Economic Review, 109(12), 4178-4219.
 
+Hammitt, J. K., Morfeld, P., Tuomisto, J. T., & Erren, T. C. (2020). Premature deaths, statistical lives, and years of life lost: identification, quantification, and valuation of mortality risks. Risk Analysis, 40(4), 674-695.
