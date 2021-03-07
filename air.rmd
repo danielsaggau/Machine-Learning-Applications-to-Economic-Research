@@ -27,6 +27,22 @@ Mortality displacement as problem with identification.
 
 Use cox-lasso model as further model.
 
+
+Ensure no mortality displacement by using other time windows (5,14,28 days).
+
+Using 40 billion people observations, using generic machine learning approach by Chernozhukov et al. (2018).
+This approach allows us to examine heterogeneity in treatment amongst elderly population.
+We can see htat there is a near 0 effect among 75 percent of population, but allows us to see that in top 5 percent has an substantial effect.
+
+
+Contribute because are using 2 new approaches. 
+Introducing machine learning for time to event studies for a economics study, looking beyond age and sex as determinants for life expectancy. 
+Specifically, this paper uses survival random forest and a survival cox-proportional hazard model.
+Secondly, this paper uses this proposed generic machine learning for inference on heterogeneous treatment effects to a quasi-experimental study.
+Few papers have implemented this method. 
+
+
+
 # Literature Review 
 
 # Data 
@@ -133,14 +149,11 @@ For more robustness, usally one compares the different thresholds of the data (2
 * Would have been more interesting using causal RF or other machine learning methods compared to OLS as opposed to generic ml inference for a subsequent 
 * Instead this paper relies very heavily on traditionally econometric tools for statistical inference, adding little by introducing machine learning into their study. 
 * This does not imply that machine learning are not applicable here, solely that the contribution made here is marginal as compared to what it could have been
-* 
-
 
 ### Discourse Double Machine Learning vs Generic Machine Learning 
 
 * Performance Random Forest 
 * 
-
 
 ### Unanswered Questions 
 

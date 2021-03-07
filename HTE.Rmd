@@ -36,7 +36,7 @@ knitr::opts_chunk$set(echo = TRUE)
 * Another goal would be choosing optimal policy 
 * random trees better for non-linear effects 
 * low vs. high dimensional data 
-* If our main goal is estimating heterogenous effects as a function of covariates, tree based and forest based methods will be a good first choice 
+* If our main goal is estimating heterogeneous effects as a function of covariates, tree based and forest based methods will be a good first choice 
 
 ## Outline 
 
@@ -101,8 +101,6 @@ Disadvantage:
 * Honest estimation for both constructing partition and cross validation change in its anticipation 
 * Able to have reasonable good standard error due to honest estimation 
 * negative MSE criterion 
-
-
 
 * Remember: Don't remember true label
 * Proposed unbiased estimator: Squared predicted treatment effect 
