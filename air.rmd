@@ -41,6 +41,16 @@ Specifically, this paper uses survival random forest and a survival cox-proporti
 Secondly, this paper uses this proposed generic machine learning for inference on heterogeneous treatment effects to a quasi-experimental study.
 Few papers have implemented this method. 
 
+Provide evidence that there is significant variation within the population.
+Identify small subset of population most vulnerable.
+
+# Background 
+
+Use PM 2.5, allowing to capture domestic pollution and pollution that is transported via the wind from other areas. 
+For reference, PM 2.5 is a common pollution measure in environmental studies, capturing 
+Authors suggest that PM 2.5 has been linked to adverse health outcomes in prior research.
+
+
 
 
 # Literature Review 
@@ -97,6 +107,9 @@ Few papers have implemented this method.
 * Inevitably, absence of proof and proof of absence are not the same. 
 * One cannot know by merely looking at the values whether it would have changed anything but it surely would have added considerable robustness, allowing for different values of statistical life measures rather than focusing entirely on estimates prediction scores without ever evaluating their performance. 
 
+* Using the lagged variables to ensure that there is no reverse causality. 
+
+
 * Unsupervised learning (cluster analysis) to group pollution effect by county across the US.
 
 ## Treatment Effect Heterogeneity
@@ -118,6 +131,9 @@ Few papers have implemented this method.
 - Robustness not really complete and more transparency needed 
 - Potentially 
 - Contribution ML algorithm 
+- Only heterogeneity in age but not in class or socioeconomic standing or geography
+- Reverse causality lag does not look at optimal lag structure
+- Some health conditions given in the might only translate at a later stage
 
 ### Model evaluation for ML 
 
@@ -126,12 +142,6 @@ For more robustness, usally one compares the different thresholds of the data (2
 
 * c-index 
 * brier-score 
-
-## Modification or difference it may have made
-
-* Choice of survival random forest unclear ()
-* Random forest objective is prediction while lasso is more statistically grounded and there for explanation
-* Only comparing non-parametric and parametric models 
 
 ### Usage of OLS regression 
 
@@ -144,16 +154,32 @@ For more robustness, usally one compares the different thresholds of the data (2
 * Here generic machine learning inference is used for subsequent HTE analysis. 
 * Inevitably, one should consider the actual contribution of this method. 
 * Novel machine learning method here lead to lower expected prediction of life expectancy. 
-* Unfortunately, it is largely unclear whether these lower predictions are actually a more accurate representation of actual survival, or whether these score are simply lower. 
-* As mentioned, to actually get a more comprehensive performance evaluation
-* Would have been more interesting using causal RF or other machine learning methods compared to OLS as opposed to generic ml inference for a subsequent 
-* Instead this paper relies very heavily on traditionally econometric tools for statistical inference, adding little by introducing machine learning into their study. 
-* This does not imply that machine learning are not applicable here, solely that the contribution made here is marginal as compared to what it could have been
 
-### Discourse Double Machine Learning vs Generic Machine Learning 
+The difference between the cox-ph model and the survival random forest or the cox-lasso is marginal (5.33 to 5.23).
+The difference between the cox-ph model and the cox-lasso model is slighter bigger(5.33 to 4.8) but still not really a jump as opposed to the jump between medicare FFS average and the cox model.
 
-* Performance Random Forest 
-* 
+Unfortunately, it is largely unclear whether these lower predictions are actually a more accurate representation of actual survival, or whether these score are simply lower. 
+
+Further the argument that you don't need a concise estimate for identification is somewhat confusing. 
+The entire point of building the different survival models is to get a more precise survival estimate, accounting for further conditions. 
+If we disregard precision and don't report any information on model evaluation, why do we build a machine learning model that is so marginally different from standard measures in the first place? 
+If it is not for the more accurate prediction, there is no justification for using the survival random forest or the cox-lasso model. 
+Further the argument that it only matters if the results play out differently is unscientific.
+Generally speaking, this does not imply that machine learning tools are not applicable here, solely that the contribution made here is marginal as compared to what it could have been
+
+### Computational Shortcomings 
+
+Due to the vast number of observations and data, it is computationally unfeasible to apply advanced tools from atmospheric science models here. 
+Henceforth one can only speculate how these models would have performed.
+
+Unable to include country, state-by month, and month by year FE.
+All replaced by month, year, and division fixed effects.
+
+Only use random 5 percent of FFS medicare sample, still amounting to 1.2 million individuals. 
+This subset is justified in the paper as a tool for computational ease. 
+While they do run the regression multiple times, it might have been nice to see other medicare beneficiaries.
+Little to nothing is known about this random sample and maybe by looking other specific estimates, accounting for factors like geography would have unfolded further variation in our treatment or at least influence our life expectancy estimates. 
+Especially given how sparse information on performance of these estimates is in this paper, this might have significantly altered the estimates.
 
 ### Unanswered Questions 
 
@@ -161,6 +187,7 @@ For more robustness, usally one compares the different thresholds of the data (2
 * Long-run effect or immediate effect? 
 * Are we really capturing immediate repercussions caused by pollution
 * Causality questions always challenging 
+* Infant mortality
 
 # Conclusion 
 
@@ -171,5 +198,7 @@ Suggest that life expectancy models vulnerability to air pollution exposure.
 # References
 
 Deryugina, T., Heutel, G., Miller, N. H., Molitor, D., & Reif, J. (2019). The mortality and medical costs of air pollution: Evidence from changes in wind direction. American Economic Review, 109(12), 4178-4219.
+
+Deryugina, T., Miller, N., Molitor, D., & Reif, J. (2021). Geographic and socioeconomic heterogeneity in the benefits of reducing air pollution in the United States. Environmental and energy policy and the economy, 2(1), 157-189.
 
 Hammitt, J. K., Morfeld, P., Tuomisto, J. T., & Erren, T. C. (2020). Premature deaths, statistical lives, and years of life lost: identification, quantification, and valuation of mortality risks. Risk Analysis, 40(4), 674-695.
