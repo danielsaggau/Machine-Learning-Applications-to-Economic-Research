@@ -24,20 +24,17 @@ Mortality in elderly population 25% are effected.
 Conduct first large scale quasi experimental investigation on health care use and medical case. 
 Wind direction as an IV identification strategy. 
 Mortality displacement as problem with identification.
-
-Use cox-lasso model as further model.
-
-
+Use various different survival models in addition to two machine learning methods. 
 Ensure no mortality displacement by using other time windows (5,14,28 days).
-
 Using 40 billion people observations, using generic machine learning approach by Chernozhukov et al. (2018).
-This approach allows us to examine heterogeneity in treatment amongst elderly population.
+This approach allows us to examine heterogeneity in treatment among elderly population.
+Specifically, this paper disentangles heterogeneity in age.
 We can see htat there is a near 0 effect among 75 percent of population, but allows us to see that in top 5 percent has an substantial effect.
 
+The contribution of this paper is suggested to be twofold.
+Firstly, this paper spends a sizable amount of defining a suitable estimate for life years left, partially by introducing machine learning for time to event studies for a economics study, looking beyond age and sex as determinants for life expectancy. 
+Specifically, this paper uses two machine learning methods namely survival random forest and a cox-lasso model.
 
-Contribute because are using 2 new approaches. 
-Introducing machine learning for time to event studies for a economics study, looking beyond age and sex as determinants for life expectancy. 
-Specifically, this paper uses survival random forest and a survival cox-proportional hazard model.
 Secondly, this paper uses this proposed generic machine learning for inference on heterogeneous treatment effects to a quasi-experimental study.
 Few papers have implemented this method. 
 
@@ -49,9 +46,6 @@ Identify small subset of population most vulnerable.
 Use PM 2.5, allowing to capture domestic pollution and pollution that is transported via the wind from other areas. 
 For reference, PM 2.5 is a common pollution measure in environmental studies, capturing 
 Authors suggest that PM 2.5 has been linked to adverse health outcomes in prior research.
-
-
-
 
 # Literature Review 
 
@@ -187,13 +181,25 @@ Especially given how sparse information on performance of these estimates is in 
 * Long-run effect or immediate effect? 
 * Are we really capturing immediate repercussions caused by pollution
 * Causality questions always challenging 
-* Infant mortality
+* Other groups like Infant mortality
 
 # Conclusion 
 
-Additional Variation via estimation of life expectancy. 
-Using heterogeneous treatment effect on quasi-experiment. 
-Suggest that life expectancy models vulnerability to air pollution exposure. 
+In conclusion, this paper does spark an interesting discourse about pollution exposure, shifting the narrative from focusing on improving the most polluted areas to focusing on the most affected areas.
+Essentially, this study does provide systemic evidence for heterogeneity in treatment, suggesting that the most vulnerable groups are more affected by pollution. 
+Irrespective, there are various things that could have been done to further improve this study and enhanced their scientific rigor. 
+
+The biggest shortcoming was the implementation of machine learning method.
+While it did not harm the results, it contributed near to nothing to this study. 
+There was no significant improvement or variation by using these tools as compared to the extensive cox-model.
+What is even worse is the disregard for actual model evaluation, reducing their credibility and justification even further.
+The argument that precision is only important for identification when results differ is not very scientific and misplaced.
+
+A second shortcoming of this paper is the lack of scope in the treatment heterogeneity. 
+We clearly see strong variation in age groups when it comes to treatment heterogeneity, but this is just one of many important factors to disentangle. 
+Especially from a policy perspective, this study should have explored 
+
+
 
 # References
 
