@@ -47,23 +47,12 @@ Use PM 2.5, allowing to capture domestic pollution and pollution that is transpo
 For reference, PM 2.5 is a common pollution measure in environmental studies, capturing 
 Authors suggest that PM 2.5 has been linked to adverse health outcomes in prior research.
 
-# Literature Review 
-
 # Data 
 
 ## Air Pollution 
 
 * Data on various different pollution types 
 * PM 2.5 is most robust measure 
-
-## Athmospheric Conditions 
-
-* 
-
-## Mortality, Morbidity and Medical Costs 
-
-* Looking at population of 65 and above 
-* 
 
 # Method used in the Paper 
 
@@ -80,36 +69,30 @@ Authors suggest that PM 2.5 has been linked to adverse health outcomes in prior 
 * Cluster all standard errors at country level and weight all estimates by population for per captia dependent variables. 
 * Robustness to different clustering choices. 
 * IV- Strategy: Daily wind direction varying by geography 
+* Looking at population of 65 and above 
 
 ## Life-Years Lost 
 
 Rather than using statistical value of Life in this paper we are using an estimate for life years lost. 
 To measure life years lost usually one needs information on counterfactual life expectancy, but this information is unobserved. 
+The previous studies use either counterfactual life expectancy via population life tables.
+Using estimation change in cause and age specific mortality over time (here argue all prior studies only use age and sex but here we are using preconditions).
+Here, we want to disentangle the effect of pollution as opposed to average life years.
+The solution proposed in this paper is using rich set of different health and non-health characteristics.
 
-The previous studies use either counterfactuual life exepectancy via population life tables 
-* Or: Using estimation change in cause and age specific mortaility over time (here argue all prior studies only use age and sex but here we are using preconditions)
-* Problem: Disentangle affect by pollution 
-* Solution: using rich set of different health and non-health characteristics 
-* left censored data (use cox ph model to estimate)
+There are various way to define statistical value of life. 
+Examples include: Excess death, hazard fraction, relative risk, premature deaths, attributable deaths. 
+These various notions of statistical value in itself offer variety to create an estimate for exposure.
+Here, we are only looking at very few comparisons, without actually even comparing actual performance of these measures.
+Henceforth it is somewhat speculative to argue one way or another. 
+Irrespective, it is not unlikely that there is also variation in these different estimates.
+This angle is not explored in this paper.
+Solely based on the research presented in this paper, one cannot exclude that the chosen measure was cherry picked to ensure significance. 
+One cannot know by merely looking at the values whether it would have changed anything but it surely would have added considerable robustness, allowing for different values of statistical life measures rather than focusing entirely on estimates prediction scores without ever evaluating their performance. 
 
-* There are various way to define statistical value of life. 
-* Examples include: Excess death, hazard fraction, relative risk, premature deaths, attributable deaths. 
-* These various notions of statistical value in itself offer variety to create an estimate for exposure.
-* Here, we are only looking at very few comparisons, without actually even comparing actual performance of these measures.
-* Henceforth it is somewhat speculative to argue one way or another. 
-* Irrespective, it is not unlikely that there is also variation in these different estimates.
-* Solely based on the research presented in this paper, one cannot exclude that the chosen measure was cherry picked to ensure significance. 
-* Inevitably, absence of proof and proof of absence are not the same. 
-* One cannot know by merely looking at the values whether it would have changed anything but it surely would have added considerable robustness, allowing for different values of statistical life measures rather than focusing entirely on estimates prediction scores without ever evaluating their performance. 
-
-* Using the lagged variables to ensure that there is no reverse causality. 
- 
 The problem with using lags is determining the lag structure of our data. 
 Here, we simple use a single year lag which is somewhat naive, because we don't know whether the medicare data would actually translate in that manner. 
 This is perhaps also a source of mis-specification. 
-
-
-* Unsupervised learning (cluster analysis) to group pollution effect by county across the US.
 
 ## Treatment Effect Heterogeneity
 
@@ -122,17 +105,8 @@ This is perhaps also a source of mis-specification.
 
 ### Criticism: 
 
-- Shortcoming: External validity 
-- Model evaluation for ML method not SOTA
-- Bayesian Estimation (probabilistic modelling)
-- Added value ML here: Prediction of pollution
 - monotonicity assumption 
 - Robustness not really complete and more transparency needed 
-- Potentially 
-- Contribution ML algorithm 
-- Only heterogeneity in age but not in class or socioeconomic standing or geography
-- Reverse causality lag does not look at optimal lag structure
-- Some health conditions given in the might only translate at a later stage
 
 ### Model evaluation for ML 
 
@@ -150,7 +124,6 @@ For more robustness, usally one compares the different thresholds of the data (2
 
 * Usage of regularized method for machine learning method but not for main regression 
 * PLS for regular regression for transparent feature selection rather than p-value hacking 
-* Also possible to model with bayesian approach, allowing for more insightsful information rather than point estimate 
 
 ### Importance ML method 
 
