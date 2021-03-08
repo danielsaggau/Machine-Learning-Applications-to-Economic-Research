@@ -83,9 +83,10 @@ Authors suggest that PM 2.5 has been linked to adverse health outcomes in prior 
 
 ## Life-Years Lost 
 
-* Statistical value of Life
-* Counterfactual life expectancy is unobserved
-* All previous studies use either counterfactuual life exepectancy via population life tables 
+Rather than using statistical value of Life in this paper we are using an estimate for life years lost. 
+To measure life years lost usually one needs information on counterfactual life expectancy, but this information is unobserved. 
+
+The previous studies use either counterfactuual life exepectancy via population life tables 
 * Or: Using estimation change in cause and age specific mortaility over time (here argue all prior studies only use age and sex but here we are using preconditions)
 * Problem: Disentangle affect by pollution 
 * Solution: using rich set of different health and non-health characteristics 
@@ -102,6 +103,10 @@ Authors suggest that PM 2.5 has been linked to adverse health outcomes in prior 
 * One cannot know by merely looking at the values whether it would have changed anything but it surely would have added considerable robustness, allowing for different values of statistical life measures rather than focusing entirely on estimates prediction scores without ever evaluating their performance. 
 
 * Using the lagged variables to ensure that there is no reverse causality. 
+ 
+The problem with using lags is determining the lag structure of our data. 
+Here, we simple use a single year lag which is somewhat naive, because we don't know whether the medicare data would actually translate in that manner. 
+This is perhaps also a source of mis-specification. 
 
 
 * Unsupervised learning (cluster analysis) to group pollution effect by county across the US.
@@ -110,7 +115,7 @@ Authors suggest that PM 2.5 has been linked to adverse health outcomes in prior 
 
 * CDDF by Chernozhukov
 * Best linear predictor of conditional average treatment effect under general conditions
-* Computational constraints, making it unable to unclude country, state-by-month and ,month-by-year fixed effects in our regression 
+* Computational constraints, making it unable to include country, state-by-month and ,month-by-year fixed effects in our regression 
 * Instead use month, year and division fixed effects 
 * Using subgroups to estimate equations and average (using 250 subsets)
 * Gradient boosted decision tree
@@ -131,11 +136,15 @@ Authors suggest that PM 2.5 has been linked to adverse health outcomes in prior 
 
 ### Model evaluation for ML 
 
-Traditionally, the way to assess prediction quality  is not simply  comparing the expectancies.
-For more robustness, usally one compares the different thresholds of the data (25, 50, 75 quantile percentage).
+Traditional model evaluation is omitted in this paper, justified by the argument that if there is no variation in the results, it does not matter how precise our estimates are.
+In my opinion, this argument is very weak and to ensure scientific rigor, one should have at least reported some sort of model performance for the machine learning methods.
+Irrespective,model evaluation would have been a substantial improvement to this paper because it would have allowed to assess the credibility of these different estimates allowing the reader to make his own judgment about the contribution of using these estimates apart from statistical significance of the results.
+Given the similarity of the estimates, it is not unlikely that these estimates would have hinted towards an only very marginal improvement, if any.
 
-* c-index 
-* brier-score 
+Model evaluation for classical classification tasks and survival tasks differentiate. 
+To accommodate the right censored nature of our data (50 % of the individuals in our sample don't die within the time frame), we would use methods employing some sort of estimation for our right censored observations e.g.via inverse weighted propensity estimates (IWPC).
+Not going into too much detail, we could have used the concordance statistics (or in short c-statistics) or a brier score here to evaluate the performance. 
+For more robustness, usally one compares the different thresholds of the data (25, 50, 75 quantile percentage).
 
 ### Usage of OLS regression 
 
@@ -175,14 +184,6 @@ While they do run the regression multiple times, it might have been nice to see 
 Little to nothing is known about this random sample and maybe by looking other specific estimates, accounting for factors like geography would have unfolded further variation in our treatment or at least influence our life expectancy estimates. 
 Especially given how sparse information on performance of these estimates is in this paper, this might have significantly altered the estimates.
 
-### Unanswered Questions 
-
-* Only disentangle effect in old population 
-* Long-run effect or immediate effect? 
-* Are we really capturing immediate repercussions caused by pollution
-* Causality questions always challenging 
-* Other groups like Infant mortality
-
 # Conclusion 
 
 In conclusion, this paper does spark an interesting discourse about pollution exposure, shifting the narrative from focusing on improving the most polluted areas to focusing on the most affected areas.
@@ -199,7 +200,14 @@ A second shortcoming of this paper is the lack of scope in the treatment heterog
 We clearly see strong variation in age groups when it comes to treatment heterogeneity, but this is just one of many important factors to disentangle. 
 Especially from a policy perspective, this study should have explored 
 
+### Unanswered Questions 
 
+As mentioned, this paper truely addresses a broader field of research. 
+One of the many interesting questions that remain unanswered is the effect of pollution in other shares of the populations. 
+One interesting addition would be looking at infant mortality and the impact of pollution on younger age groups. 
+Further, there are more convoluted aspects that remain hard to disentangle.
+It remains uncertain whether we will be able to causally disentangle the impact of pollution in the long run and perhaps accounting for heterogeneity over exposure time to pollution.
+Ultimately, the question remains whether these insights will really be causal or merely a mere approximation of an causal effect, capturing some other sort of variation due to omitted factors. 
 
 # References
 
