@@ -48,16 +48,21 @@ Secondly, this paper uses this proposed generic machine learning for inference o
 
 # Data 
 
+This section looked at the different dataset. 
+The authors looked at (1) air pollution, (2) atmospheric conditions and (3) mortality, morbidity and medical costs.
+(1) Air pollution is measured looking at PM 2.5, provided by the EPA starting in 1999.
+Other measures are also included in the dataset such as sulfur dioxide, ozone, nitrogen dioxide and carbon monoxide.
+(2) For atmospheric conditions, we use information on wind speed and wind direction for the years 1999-2013. 
+To supplement this information, the authors obtain information on temperature and precipitation data from Schlenker and Roberts (2009). 
+(3) Mortality, morbidity and medical costs is measured by using medicare administrative data. 
 
-
-* Data on various different pollution types 
-* PM 2.5 is most robust measure 
-
-# Methods 
+# Methods (Empirical Strategies)
 
 The methods and results are divided into tree subsections, firstly looking at (1) mortality and health care use, the looking at (2) life years lost and thirdly (3) looking at treatment effect heterogeneity. 
 
 ## Mortality and health care use
+
+
 
 * Dependent Variables: health care use, health care spending and net of any confounding factors 
 * Include FE: country level, state by month level and month by year level 
