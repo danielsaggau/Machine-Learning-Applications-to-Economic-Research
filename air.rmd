@@ -30,44 +30,32 @@ Rather than focusing on certain geospatial areas, this paper looks at large scal
 Further the authors argue that one key consideration for potential bias is mortality displacement, people who would have died regardless of treatment. 
 Here, this paper ensures that there is no mortality displacement by using other time windows (5,14,28 days).
 
+To account for mortality displacement outside of this window, this paper also estimates number of life years lost due to pollution exposure. 
+The authors use various survival models, also looking at two machine learning methods namely a cox-lasso model and for reference a random survival forest. 
+Individual level estimates are aggregate to get a country level measure. 
 
-Use various different survival models in addition to two machine learning methods. 
+Based on these estimates, cost caused by exposure to pollution are estimates. 
+Subsequently, the authors suggest that mortality is not linear in age. 
+Further, they argue that life expectancy is a better indicator for vulnerability to pollution. 
+The argument suggests that the 'mortality burden' is predominately placed within the elderly population with five to ten or two to five years remaining. 
+Using 40 billion people observations, this study disentangles variation in exposure using the generic machine learning approach by Chernozhukov et al. (2018).
+We can see that there is a near 0 effect among 75 percent of population, but allows us to see that in top 5 percent has an substantial effect.
 
-Using 40 billion people observations, using generic machine learning approach by Chernozhukov et al. (2018).
-This approach allows us to examine heterogeneity in treatment among elderly population.
-Specifically, this paper disentangles heterogeneity in age.
-We can see htat there is a near 0 effect among 75 percent of population, but allows us to see that in top 5 percent has an substantial effect.
-
-The contribution of this paper is suggested to be twofold.
+The contribution to the literature of this paper is suggested to be twofold.
 Firstly, this paper spends a sizable amount of defining a suitable estimate for life years left, partially by introducing machine learning for time to event studies for a economics study, looking beyond age and sex as determinants for life expectancy. 
 Specifically, this paper uses two machine learning methods namely survival random forest and a cox-lasso model.
-
 Secondly, this paper uses this proposed generic machine learning for inference on heterogeneous treatment effects to a quasi-experimental study.
-Few papers have implemented this method. 
-
-Provide evidence that there is significant variation within the population.
-Identify small subset of population most vulnerable.
-
-# Background 
-
-Use PM 2.5, allowing to capture domestic pollution and pollution that is transported via the wind from other areas. 
-For reference, PM 2.5 is a common pollution measure in environmental studies, capturing 
-Authors suggest that PM 2.5 has been linked to adverse health outcomes in prior research.
 
 # Data 
 
-## Air Pollution 
+
 
 * Data on various different pollution types 
 * PM 2.5 is most robust measure 
 
-# Method used in the Paper 
+# Methods 
 
-3 pillars: 
-
-- Mortality and health care use
-- Life-Years Lost 
-- Treatment Effect Heterogeneity
+The methods and results are divided into tree subsections, firstly looking at (1) mortality and health care use, the looking at (2) life years lost and thirdly (3) looking at treatment effect heterogeneity. 
 
 ## Mortality and health care use
 
