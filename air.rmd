@@ -19,13 +19,20 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduction 
 
-Paper uses heterogeneous treatment effect and generic machine learning inference. 
-Mortality in elderly population 25% are effected.
-Conduct first large scale quasi experimental investigation on health care use and medical case. 
-Wind direction as an IV identification strategy. 
-Mortality displacement as problem with identification.
+This research paper examines heterogeneity in mortality, health care and medical costs caused by pollution.
+Specifically, this paper focuses on heterogeneity in age, suggesting that a small subset of the elderly population is most vulnerable to pollution.
+Henceforth, their study suggests that policy makers looking at the effect of exposure to pollution needs to account for vulnerable groups rather than focusing on improving the most polluted areas.
+Essentially this paper combines various econometric methods.
+This paper instruments for air pollution by leveraging changes in wind direction to estimate the causal impact of PM 2.5 on health.
+Using this instrument, they conduct a quasi-experimental investigation. 
+Their research ensures robustness by looking at fixed effects, climate variables, changes in country's daily wind direction.
+Rather than focusing on certain geospatial areas, this paper looks at large scale variation independent of geographic features. 
+Further the authors argue that one key consideration for potential bias is mortality displacement, people who would have died regardless of treatment. 
+Here, this paper ensures that there is no mortality displacement by using other time windows (5,14,28 days).
+
+
 Use various different survival models in addition to two machine learning methods. 
-Ensure no mortality displacement by using other time windows (5,14,28 days).
+
 Using 40 billion people observations, using generic machine learning approach by Chernozhukov et al. (2018).
 This approach allows us to examine heterogeneity in treatment among elderly population.
 Specifically, this paper disentangles heterogeneity in age.
