@@ -41,11 +41,6 @@ The argument suggests that the 'mortality burden' is predominately placed within
 Using 40 billion people observations, this study disentangles variation in exposure using the generic machine learning approach by Chernozhukov et al. (2018).
 We can see that there is a near 0 effect among 75 percent of population, but allows us to see that in top 5 percent has an substantial effect.
 
-The contribution to the literature of this paper is suggested to be twofold.
-Firstly, this paper spends a sizable amount of defining a suitable estimate for life years left, partially by introducing machine learning for time to event studies for a economics study, looking beyond age and sex as determinants for life expectancy. 
-Specifically, this paper uses two machine learning methods namely survival random forest and a cox-lasso model.
-Secondly, this paper uses this proposed generic machine learning for inference on heterogeneous treatment effects to a quasi-experimental study.
-
 # Data 
 
 This section looked at the different dataset. 
@@ -60,14 +55,23 @@ To supplement this information, the authors obtain information on temperature an
 
 The methods and results are divided into tree subsections, firstly looking at (1) mortality and health care use, the looking at (2) life years lost and thirdly (3) looking at treatment effect heterogeneity. 
 
+Deryugina et al. suggest the following equation:
+
+$$Y_{cdmy} = \beta \times PM 2.5 + X' _{cdmy} \times \gamma + \alpha_c + \alpha_{as}+ \alpha_{my} + \epsilon_{cdmy}$$
+
+Here, Y is the outcome variable,  
+
 ## Mortality and health care use
 
+The authors use health care spending as a measure for medical costs and also look at health care.
+These measures are corrected for confounding factors. 
+The study accounts for various fixed effects such as country level fixed effects, state by month level fixed effects and month by year level fixed effects. 
+Subsequently, the authors take the estimates and aggregate them to the country level, weighting by population per captia as the dependent variable.
+
+Further the authors cluster air pollution monitors to ensure that pollution not dependent on the location of the monitor using k-means algorithm and creating 100 spatial groups. 
 
 
-* Dependent Variables: health care use, health care spending and net of any confounding factors 
-* Include FE: country level, state by month level and month by year level 
-* Cluster all standard errors at country level and weight all estimates by population for per captia dependent variables. 
-* Robustness to different clustering choices. 
+* Robustness to different clustering choices. (good)
 * IV- Strategy: Daily wind direction varying by geography 
 * Looking at population of 65 and above 
 
@@ -79,7 +83,6 @@ The previous studies use either counterfactual life expectancy via population li
 Using estimation change in cause and age specific mortality over time (here argue all prior studies only use age and sex but here we are using preconditions).
 Here, we want to disentangle the effect of pollution as opposed to average life years.
 The solution proposed in this paper is using rich set of different health and non-health characteristics.
-
 There are various way to define statistical value of life. 
 Examples include: Excess death, hazard fraction, relative risk, premature deaths, attributable deaths. 
 These various notions of statistical value in itself offer variety to create an estimate for exposure.
@@ -96,17 +99,49 @@ This is perhaps also a source of mis-specification.
 
 ## Treatment Effect Heterogeneity
 
-* CDDF by Chernozhukov
-* Best linear predictor of conditional average treatment effect under general conditions
-* Computational constraints, making it unable to include country, state-by-month and ,month-by-year fixed effects in our regression 
-* Instead use month, year and division fixed effects 
-* Using subgroups to estimate equations and average (using 250 subsets)
-* Gradient boosted decision tree
+To disentangle heterogeneity in our treatment this paper uses the CDDF approach proposed by Chernozhukov et al. (2018).
+The authors focus on estimating the best linear predictor of conditional average treatment effect under general conditions.
 
-### Criticism: 
+$$Died_{it} = \alpha + \sum^{\gamma}_{k=1} \gamma \times k (T_{ik} - \hat{p}(Z_{it})) * 1(G_k) + \theta \times \hat{Died^C}(Z_{it}) + \epsilon_{it}$$
 
-- monotonicity assumption 
-- Robustness not really complete and more transparency needed 
+The authors argue that computational constraints make it unable to include country, state-by month and month by year fixed effects in this regression. 
+Instead the authors propose the usuage of month, year and division fixed effects. 
+Further, they use subgroups to estimate the equations and averages (using 250 subsets).
+Subsequently, the authors use a gradient boosted decision tree. 
+
+
+
+
+The contribution to the literature of this paper is suggested to be twofold.
+Firstly, this paper spends a sizable amount of defining a suitable estimate for life years left, partially by introducing machine learning for time to event studies for a economics study, looking beyond age and sex as determinants for life expectancy. 
+Specifically, this paper uses two machine learning methods namely survival random forest and a cox-lasso model.
+Secondly, this paper uses this proposed generic machine learning for inference on heterogeneous treatment effects to a quasi-experimental study.
+
+### Review
+
+The review is structured as follows:
+Firstly, there is a brief outlook towards the biggest constraints in this paper. 
+Arguably, there are various constriants, but the emphasis will be on the machine learning tools used. 
+Therefore, the following section allocates time towards the evaluation of the machine learning method for the life years lost estimate using the cox-ph lasso regression and the survival random forest. 
+Thereafter, I will analyse the contribution by the different proposed tools also undertake a brief discourse to the novel tools, namely the CDDF approach.
+Subsequently follows a brief analysis of computational shortcomings mentioned in the paper.
+Lastly, there is a brief conclusion with an emphasis on open questions for further research. 
+
+
+Open Points: 
+
+**autocorrelation**:
+
+* Check for autocorrelation but dont account for autocorrelation plots.
+* It would have been nice to include these plots to actually get a bigger picture of the true lags rather than assuming a lag of 1 for both instruments.
+* This would have allowed for more transparency. 
+
+**fixed effects geography**
+
+* Authors include FE for geography but dont include it as a source of heterogeneity in treatment (same would be interesting for demographic features)
+* 
+
+
 
 ### Model evaluation for ML 
 
@@ -120,12 +155,16 @@ To accommodate the right censored nature of our data (50 % of the individuals in
 Not going into too much detail, we could have used the concordance statistics (or in short c-statistics) or a brier score here to evaluate the performance. 
 For more robustness, usally one compares the different thresholds of the data (25, 50, 75 quantile percentage).
 
+### Contribution of the CDDF Approach 
+
+
+
 ### Usage of OLS regression 
 
 * Usage of regularized method for machine learning method but not for main regression 
 * PLS for regular regression for transparent feature selection rather than p-value hacking 
 
-### Importance ML method 
+### Importance ML method for survival analysis 
 
 * Here generic machine learning inference is used for subsequent HTE analysis. 
 * Inevitably, one should consider the actual contribution of this method. 
@@ -133,9 +172,7 @@ For more robustness, usally one compares the different thresholds of the data (2
 
 The difference between the cox-ph model and the survival random forest or the cox-lasso is marginal (5.33 to 5.23).
 The difference between the cox-ph model and the cox-lasso model is slighter bigger(5.33 to 4.8) but still not really a jump as opposed to the jump between medicare FFS average and the cox model.
-
 Unfortunately, it is largely unclear whether these lower predictions are actually a more accurate representation of actual survival, or whether these score are simply lower. 
-
 Further the argument that you don't need a concise estimate for identification is somewhat confusing. 
 The entire point of building the different survival models is to get a more precise survival estimate, accounting for further conditions. 
 If we disregard precision and don't report any information on model evaluation, why do we build a machine learning model that is so marginally different from standard measures in the first place? 
@@ -183,6 +220,8 @@ It remains uncertain whether we will be able to causally disentangle the impact 
 Ultimately, the question remains whether these insights will really be causal or merely a mere approximation of an causal effect, capturing some other sort of variation due to omitted factors. 
 
 # References
+
+Chernozhukov, V., Demirer, M., Duflo, E., & Fernandez-Val, I. (2018). Generic machine learning inference on heterogenous treatment effects in randomized experiments (No. w24678). National Bureau of Economic Research.
 
 Deryugina, T., Heutel, G., Miller, N. H., Molitor, D., & Reif, J. (2019). The mortality and medical costs of air pollution: Evidence from changes in wind direction. American Economic Review, 109(12), 4178-4219.
 
