@@ -21,7 +21,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This research paper examines heterogeneity in mortality, health care and medical costs caused by pollution.
 Specifically, this paper focuses on heterogeneity in age, suggesting that a small subset of the elderly population is most vulnerable to pollution.
-This paper instruments for air pollution by leveraging changes in wind direction to estimate the causal impact of PM 2.5 on health.
+This paper instruments for air pollution by leveraging changes in wind direction to estimate the causal impact of PM 2.5 on health using a subset of a sample of 40 billion observations.
 Using this instrument, they conduct a quasi-experimental investigation. 
 Their research ensures robustness by looking at fixed effects, climate variables, changes in country's daily wind direction.
 The authors use various survival models, also looking at two machine learning methods namely a cox-lasso model and for reference a random survival forest. 
@@ -29,8 +29,9 @@ Individual level estimates are aggregate to get a country level measure.
 Their research estimates costs caused by exposure to pollution.
 The argument suggests that the 'mortality burden' is predominately placed within the elderly population with five to ten or two to five years remaining. 
 Further, the authors introduce an estimate for life years left, arguing that life expectancy is a better indicator for vulnerability to pollution. 
-Using 40 billion people observations, this study disentangles variation in exposure using the generic machine learning approach by Chernozhukov et al. (2018).
-We can see that there is a near 0 effect among 75 percent of population, but allows us to see that in top 5 percent has an substantial effect.
+This study disentangles variation in exposure using the generic machine learning approach by Chernozhukov et al. (2018).
+We can see that there is a near 0 effect among 75 percent of our sample looking at elderly beneficiaries.
+But the CDDF approach allows us to disentangle heterogeneity, and shows that from the 5 percentage threshold of the most vulnerable elderly population onward, pollution exposure has a very severe effect.
 
 # Data 
 
@@ -98,16 +99,17 @@ Further, this specification captures variation dependent on wind changes and the
 ## Life-Years Lost 
 
 To account for mortality displacement outside of the mentioned window of days, this paper also estimates number of life years lost due to pollution exposure.
-To measure life years lost usually one needs information on counterfactual life expectancy, but this information is unobserved. 
-Previous studies use e.g. counterfactual life expectancy via population life tables.
-Using estimation change in cause and age specific mortality over time (here argue all prior studies only use age and sex but here we are using preconditions).
 Here, we want to disentangle the effect of pollution as opposed to average life years.
-The solution proposed in this paper is using a rich set of different health and non-health characteristics and also comparing various estimates based on machine learning methods which allow us to enable feature selection. This enables the authors to avoid overfitting despite examining manifold coefficients.
+To measure life years lost usually one needs information on counterfactual life expectancy which is unobserved.
+Previous studies use e.g. counterfactual life expectancy via population life tables.
+The solution proposed in this paper is using a rich set of different health and non-health characteristics to add to existing estimates only looking at sex and age.
+The authors also comparing propose estimates based on machine learning methods which allow us to enable feature selection.
 As mentioned the authors use a non-parametric model, a survival forest, and a regularization based model, a least absolute shrinkage and selection operator (LASSO) with a cox proportional hazard model. 
 The regularization method induces a penalization term which is guarded by the parameter lambda, weighting the trade off between bias and variance. 
 The lasso model is a commonly used too due to its properties allowing one to induce further scarcity.
 The authors report all estimates for the different methods (Medicare FFS average, cox, cox with more covariates, survival random forest, cox lasso). 
-Generally speaking, the machine learning methods propose the lowest predicted life expectancy in years. 
+There is a substantial drop in expected life expectancy when accounting for these chronic conditions and other non-health characteristics. 
+The machine learning methods propose the lowest predicted life expectancy in years. 
 
 ## Treatment Effect Heterogeneity
 
@@ -133,7 +135,7 @@ The notation is as follows:
 
 $$Died_{it} = \alpha + \sum^{\gamma}_{k=1} \gamma \times k (T_{ik} - \hat{p}(Z_{it})) * 1(G_k) + \theta \times \hat{Died^C}(Z_{it}) + \epsilon_{it}\tag{4}$$
 
-Here, the paper uses an indicator function see whether the prediction lies within within the kth interval or not. 
+Here, the paper uses an indicator function $1(G_k)$ see whether the prediction lies within within the kth interval or not. 
 Of special interest is the gamma parameter, an estimate for the ATE for the group k.
 Two further challenges are addressed. 
 On the one hand the authors down-sample because the probability of dying is small and fairs poorly without doing so. 
@@ -162,32 +164,38 @@ Secondly, this paper uses this proposed generic machine learning for inference o
 # Review
 
 This section will evaluate some of the most important or debatable components of this analysis. 
-I will focus on the added value of using different machine learning methods.
-Thereafter i will take about further measures to improve robustness and open questions. 
+First, I will discuss the model evaluation for the predicted life expectancy.
+Afterwards, I will focus on the added value of using different machine learning methods.
+Subsequently, I will discuss other sources of heterogeneity that are ignored in this study.
+Lastly, I will take about further measures to improve robustness and open questions. 
 
-## Model Evaluation: Machine Learning for Time-to-Event Studies
+## Model Evaluation: Machine Learning for Survival Studies
 
 Traditional model evaluation is omitted in this paper, justified by the argument that if there is no variation in the results, it does not matter how precise our estimates are.
-In my opinion, this argument is very weak.
 To ensure scientific rigor, one should have at least reported some sort of model performance for the machine learning methods.
-Model evaluation would have been a substantial improvement to this paper because it would have allowed to assess the credibility of these different estimates allowing the reader to make his own judgment about the contribution of using these estimates apart from statistical significance of the results.
+Further the argument that you don't need a concise estimate for identification is confusing. 
+If we disregard precision and don't report any information on model evaluation, why do we build a machine learning model that is so marginally different from standard measures in the first place?
+Model evaluation would have been a substantial improvement to this paper because it would have allowed to assess the credibility of these different estimates allowing the reader to make his own judgment about the contribution of using these estimates apart from statistical significance of the subsequent regression results.
 
 Model evaluation for classical classification tasks and survival tasks differentiate. 
-To accommodate the right censored nature of our data (50 % of the individuals in our sample don't die within the time frame), we would use methods employing some sort of estimation for our right censored observations e.g. via inverse weighted propensity estimates (IWPC).
-Not going into too much detail, we could have used the concordance statistics (or in short c-statistics) or a brier score here to evaluate the performance. 
-For more robustness, usually one  would compare performance for the different thresholds within the data (tpyicall: 25, 50, 75 percentage quantiles).
-Suppose the prediction would have been at either one of the extremes such an extremely high or low MSE, it would have been interesting to see and would have allowed some more insights into the relationship of different predictors. 
+To accommodate the right censored nature of our data (50 % of the individuals in our sample don't die within the time frame), we would use methods employing an estimation for our right censored observations e.g. via inverse weighted propensity estimates (IWPC).
+Not going into too much detail, we could have used the concordance statistics (in short c-statistics) or a brier score here to evaluate the performance. 
+For more robustness, usually one  would compare performance for the different thresholds within the data (typically: 25, 50, 75 percentage quantiles).
+Suppose the prediction would have been at either one of the extremes such an extremely high or low MSE, it would have been interesting to see and would have allowed some more insights into the relationship of different predictors.
 
 ## Added Value of Survival Analysis via Machine Learning 
 
 The difference between the the survival random forest estimate and the cox-lasso is marginal (5.33 to 5.23).
-The difference between the cox-ph model and the cox-lasso model is slighter bigger (5.33 to 4.8) but still not really a jump as opposed to the jump between medicare FFS average and the cox model.
+The difference between the cox-ph model and the cox-lasso model is slighter bigger (5.33 to 4.8) but still not a substantial jump as opposed to the jump between medicare FFS average and the cox model.
 Unfortunately, it is largely unclear whether these lower predictions are actually a more accurate representation of survival, or whether these score are simply lower. 
-Further the argument that you don't need a concise estimate for identification is somewhat confusing. 
-If we disregard precision and don't report any information on model evaluation, why do we build a machine learning model that is so marginally different from standard measures in the first place?
 It would have been really interesting to look at the different percentile thresholds for our data, given the subsequent arguments in the paper and the focus on vulnerability and heterogeneity within our sample.
 Further the argument that it only matters if the results expose differences is not very sound.
 Generally speaking, this does not imply that machine learning tools are not applicable here, solely that the contribution made here is marginal as compared to what existing methods propose. 
+One should also note that there are various way to define statistical value of life. 
+Examples include: Excess death, hazard fraction, relative risk, premature deaths, attributable deaths.(Hammitt et al., 2020).
+These various notions of statistical value in itself offer variety to create an estimate for life years remaining.
+It is not unlikely that there is also variation in these different estimates.
+Solely based on the research presented in this paper, one cannot exclude that the chosen measure was cherry picked to confirm a prior hypothesis or illustrate the relationship between traditional methods and machine learning estimates. 
 
 ## Contribution of the CDDF Approach and considerations 
 
@@ -202,7 +210,7 @@ One should also note that one could have looked at causal forests for lower dime
 Unfortunately, for this problem, the causal random forest is not applicable. 
 Further the CDDF approach shows that one can utilize generic machine learning methods without violating any assumptions, given the different trajectory. 
 
-### Heterogeneity in our Sample 
+## Heterogeneity in our Sample 
 
 Only use random 5 percent of FFS medicare sample, still amounting to 1.2 million individuals. 
 This subset is justified in the paper as a tool for computational ease. 
@@ -210,15 +218,7 @@ While they do run the regression multiple times, it might have been nice to see 
 By disentangling the sample even further, one could potential discover even more heterogeneity. 
 Accounting for factors like geography would have unfolded further variation in our treatment or at least influence our life expectancy estimates. 
 
-## Other Considerations 
-
-**Value of Statistical Life** 
-
-There are various way to define statistical value of life. 
-Examples include: Excess death, hazard fraction, relative risk, premature deaths, attributable deaths.(Hammitt et al., 2020).
-These various notions of statistical value in itself offer variety to create an estimate for life years remaining.
-It is not unlikely that there is also variation in these different estimates.
-Solely based on the research presented in this paper, one cannot exclude that the chosen measure was cherry picked to confirm a prior hypothesis or illustrate the relationship between traditional methods and machine learning estimates. 
+## Other Minor Considerations 
 
 **Usage of OLS regression** 
 
@@ -256,10 +256,10 @@ As mentioned, this paper truely addresses a broader field of research.
 One of the many interesting questions that remain unanswered is the effect of pollution in other shares of the populations. 
 Even looking at the new research paper published by the mostly same research team (apart from one coauthor), there is no consideration for other subgroups. This is a pivotal shortcoming, given the strong policy statements given in this and the subsequent paper by these authors. 
 One interesting addition would be looking at infant mortality and the impact of pollution on younger age groups. 
-Further, there are more convoluted aspects that remain hard to disentangle.
 Is it ethical to ground policy decisions solely based on analyses using subgroups of the population? 
 In other terms, is it fair to make pollution reduction policies without accounting for other subgroups suscept to pollution exposure?
-Additionally, it remains uncertain whether we will be able to causally disentangle the impact of pollution accounting for long-run heterogeneity within exposure.
+Further, there are more convoluted aspects that remain hard to disentangle.
+It remains uncertain whether we will be able to causally disentangle the impact of pollution accounting for true long-run heterogeneity within exposure.
 Ultimately, the question remains whether these insights will really be causal or merely a mere approximation of an causal effect, capturing some other sort of variation due to omitted factors. 
 
 # References
