@@ -74,39 +74,41 @@ The study accounts for various fixed effects such as country level fixed effects
 Fixed effects are notated as $\alpha_c$ for state by county, $\alpha_{sm}$ for state by month, and $\alpha_{my}$ for month by year fixed effects.
 X is their specification for the remaining control variables.
 X entails 28899 weather conditions of which approximately 9300 are included per day and 27900 per regression. 
-These measures are corrected for confounding factors. 
-Subsequently, their research takes the estimates and aggregate them to the country level, weighting by population per capita as the dependent variable.
+These measures are corrected for confounding factors.
+This studies captures geographic variation by using the interaction coefficient $\beta$.
+Furthermore, this research paper takes the estimates and aggregate them to the country level, weighting by population per capita as the dependent variable.
 
-Further the authors create clusters for air pollution monitors to ensure that pollution not dependent on the location of the monitor.
+Sometimes, pollution monitors are purposefully placed in locations with less pollution exposure to lower exposure scores.
+The authors create clusters for air pollution monitors to ensure that pollution not dependent on the location of the monitor.
 They create 100 spatial groups, using k-means algorithm.
-This approach allows for robustness against bias caused by selective placing of pollution monitors. 
+This approach allows for robustness against bias caused by selectively placing pollution monitors.
 As mentioned, the paper uses an IV-strategy using daily wind direction.
 The first stage equation is defined as: 
-Geographic variation which is enabled by using the interaction coefficient $\beta$.
 
 $$
 PM 2.5 _{cdmy} = \sum_{g \in G} \sum^2_{b=0} \beta^g_b1[G_c=g] \times WINDDIR^{90b}_{cdmy} + X'_{cdmy} \sigma + \alpha_c+ \alpha_sm + \alpha_my + \epsilon_{cdmy}\tag{2}
 $$
 
 The excluded variables are defined within the indicator function.
-The indicator function for WINDDIR is equal to 1 if the direction in the country falls within the bandwidth of the 90 degree interval and 0 otherwise. 
+The indicator function for WINDDIR is equal to 1 if the direction in the country falls within the bandwidth of the 90 degree interval and 0 otherwise.
 The alpha measures are the defined in the same manner as for the first equation.
-Furthermore, the authors argue that non-local pollution (traveling) will be the driving force of variation within the second equation because the non-local effects will be more likely to have similar effects as opposed to the local effects which are more susceptible to differ.
+Furthermore, the authors argue that non-local pollution will be the driving force of variation within the second equation because the non-local effects will be more likely to have similar effects as opposed to the local effects which are more susceptible to differ.
 The effect of wind direction is confined by using bins.
-The specification for the remaining control variables is X, again. 
-This specification captures variation dependent on wind changes and their affect on local pollution.
+The specification for the remaining control variables is X. (see equation 1) 
+This specification allows one to capture variation dependent on wind changes and their affect on local pollution.
 
 ## Life-Years Lost 
 
-To measure life years lost usually one needs information on counterfactual life expectancy which is unobserved.
-Previous studies use e.g. counterfactual life expectancy via population life tables.
-The solution proposed in this paper is using a rich set of different health and non-health characteristics to add to existing estimates only looking at sex and age.
+To complement the analysis on mortality within the window-bins, this study proposed an estimate of life years lost due to pollution exposure.
+To measure life years lost, one usually needs information on counterfactual life expectancy which is unobserved.
+Previous studies for instance estimate counterfactual life expectancy via population life tables.
+The solution proposed in this paper is using a rich set of different health and non-health characteristics to add to existing survival estimates only looking at sex and age.
 The authors also propose estimates based on machine learning methods which allow us to enable feature selection.
-As mentioned the authors use a non-parametric model, a survival forest, and a regularization based model, a least absolute shrinkage and selection operator (LASSO) with a cox proportional hazard model. 
+As mentioned the authors use a non-parametric model, a survival forest, and a regularization based model, a least absolute shrinkage and selection operator (LASSO) with a cox proportional hazard model.
+Random forest methods allow for considerable freedom due to their non-parametric nature. 
 The regularization method induces a penalization term which is guarded by the parameter lambda, weighting the trade off between bias and variance. 
-The lasso model is a commonly used too due to its properties allowing one to induce further scarcity.
-The authors report all estimates for the different methods (Medicare FFS average, cox, cox with more covariates, survival random forest, cox-lasso). 
-There is a substantial drop in expected life expectancy when accounting for these chronic conditions and other non-health characteristics. 
+The authors report all life expectancy estimates for the different methods (Medicare FFS average, cox, cox with more covariates, survival random forest, cox-lasso). 
+One should note, that there is a substantial drop in expected life expectancy when accounting for these chronic conditions and other non-health characteristics. 
 The machine learning methods propose the lowest predicted life expectancy in years. 
 
 ## Treatment Effect Heterogeneity
@@ -137,28 +139,27 @@ Here, the paper uses an indicator function $1(G_k)$ see whether the prediction l
 Of special interest is the gamma parameter, an estimate for the ATE for the group k.
 Two further challenges are addressed. 
 On the one hand the authors down-sample because the probability of dying is small and fairs poorly without doing so. 
-The authors argue that computational constraints make it unable to include country, state-by month and month by year fixed effects in this regression. 
-Their research employs subgroups to estimate the equations and averages (using 250 subsets).
+The authors argue that computational constraints make it impossible to include country, state-by month and month by year fixed effects in this regression. 
+Their research employs subgroups to estimate the equations and averages, using 250 subsets.
 
 # Results 
 
-There are 10 result-tables that are included in the main paper. 
+There are 10 result-tables that are included in the main results section. 
 Due to time constraints, this analysis will not go into detail for every table. 
 For the results on mortality by age group the authors present both OLS and IV estimates, while one should note that OLS indicate significant bias. 
 Same relationship holds for the health care usage results. 
 The results of PM 2.5 exposure on estimates for the life years lost indicate that there is significant heterogeneity when accounting for more covariates.
 Using a 'back of the envelop calculation' the authors also propose a cost estimate.
 One should note that with the lower life years estimates, these costs also reduce (around $76 billion dollars lower). 
-The authors introduce the estimates for the different age groups proposed by the CDDF approach and subsequently also explore robustness by taking into account other pollution measures, weather controls and lags, too.
-In the conclusion, their study suggests that policy makers looking at the effect of exposure to pollution needs to account for vulnerable groups rather than focusing on improving the most polluted areas.
+Moreover, the study introduces the estimates for the different age groups proposed by the CDDF approach and subsequently also explore robustness by taking into account other pollution measures, weather controls and lags, too.
 
 # Conclusion 
 
 The contribution to the literature of this paper is suggested to be twofold.
-Firstly, the paper spends a sizable amount of time defining a suitable estimate for life years left.
-The authors suggest machine learning for time to event studies, looking beyond age and sex as determinants for life expectancy to complement existing methods and for applications in economics. 
-Specifically, this paper uses two machine learning methods namely survival random forest and a cox-lasso model.
+Firstly, the authors suggest a machine learning model for time to event studies, looking beyond age and sex as determinants for life expectancy to complement existing methods.
 Secondly, this paper uses this proposed generic machine learning for inference on heterogeneous treatment effects to a quasi-experimental study.
+Briefly summarized, their study suggests that policy makers looking at the effect of exposure to pollution needs to account for vulnerable groups rather than focusing on improving the most polluted areas.
+This study exposes substantial heterogeneity in the effect of pollution exposure, with the most vulnerable groups with the lowest life expectancy suffering the most. 
 
 # Review
 
@@ -170,10 +171,10 @@ Thereafter, I will talk about further measures to improve robustness and open qu
 
 ## Model Evaluation: Machine Learning for Survival Studies
 
-Traditional model evaluation is omitted in this paper, justified by the argument that if there is no variation in the results, it does not matter how precise our estimates are.
+Traditional machine learning tools for model evaluation is omitted in this paper, justified by the argument that if there is no variation in the results, it does not matter how precise our estimates are.
 To ensure scientific rigor, one should have at least reported some sort of model performance for the machine learning methods.
-Further the argument that you don't need a concise estimate for identification is confusing. 
-If we disregard precision and don't report any information on model evaluation, why do we build a machine learning model that is so marginally different from standard measures in the first place?
+Further the argument that you do not need a concise estimate for identification is confusing. 
+If we disregard precision and do not report any information on model evaluation, why do we build a machine learning model that is so marginally different from standard measures in the first place?
 Model evaluation would have been a substantial improvement to this paper because it would have allowed to assess the credibility of these different estimates allowing the reader to make his own judgment about the contribution of using these estimates apart from statistical significance of the subsequent regression results.
 
 Model evaluation for classical classification tasks and survival tasks differentiate. 
