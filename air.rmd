@@ -1,5 +1,5 @@
 ---
-title: "**The Mortalility and Medical Costs of Air Pollution- Review**"
+title: "**The Mortalility and Medical Costs of Air Pollution - Review**"
 author: 
 - "Author: Daniel Saggau — daniel.saggau@campus.lmu.de"
 - "Supervisor: Nadzeya Laurentsyeva"
