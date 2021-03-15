@@ -65,9 +65,16 @@ The methods and results are divided into tree subsections, firstly looking at (1
 
 Deryugina et al. suggest the following equation:
 
-$$Y_{cdmy} = \beta \times PM 2.5 + X' _{cdmy} \times \gamma + \alpha_c + \alpha_{as}+ \alpha_{my} + \epsilon_{cdmy}$$
+$$
+Y_{cdmy} = \beta \times PM 2.5 + X' _{cdmy} \times \gamma + \alpha_c + \alpha_{as}+ \alpha_{my} + \epsilon_{cdmy}\tag{1}
+$$
 
-Here, Y is the outcome variable,  
+Here, Y is the outcome variable. 
+As mentioned we are looking at mortality and health care use.
+For mortality we look at death per million beneficiaries as a three day total.
+For health care use the authors look at emergency room visits.
+The authors use estimates for ER visits that lead to hospital submission and as a placebo also looking at planned admissions.
+This measure should be independent of pollution.
 
 ## Mortality and health care use
 
@@ -76,11 +83,15 @@ These measures are corrected for confounding factors.
 The study accounts for various fixed effects such as country level fixed effects, state by month level fixed effects and month by year level fixed effects. 
 Subsequently, the authors take the estimates and aggregate them to the country level, weighting by population per captia as the dependent variable.
 
-Further the authors cluster air pollution monitors to ensure that pollution not dependent on the location of the monitor using k-means algorithm and creating 100 spatial groups. 
+Further the authors cluster air pollution monitors to ensure that pollution not dependent on the location of the monitor using k-means algorithm and creating 100 spatial groups.
+This approach allows for robustness against bias caused by selective placing of pollution monitors. 
+As mentioned, the paper uses an IV-strategy using daily wind direction.
+The first stage equation is defined as: 
 
+$$
+PM 2.5 _{cdmy} = \sum_{g \in G} \sum^2_{b=0} \beta^g_b1[G_c=g] \times WINDDIR^{90b}_{cdmy} + X'_{cdmy} \sigma + \alpha_c+ \alpha_sm + \alpha_my + \epsilon_{cdmy}\tag{2}
+$$
 
-* Robustness to different clustering choices. (good)
-* IV- Strategy: Daily wind direction varying by geography 
 * Looking at population of 65 and above 
 
 ## Life-Years Lost 
@@ -110,7 +121,7 @@ This is perhaps also a source of mis-specification.
 To disentangle heterogeneity in our treatment this paper uses the CDDF approach proposed by Chernozhukov et al. (2018).
 The authors focus on estimating the best linear predictor of conditional average treatment effect under general conditions.
 
-$$Died_{it} = \alpha + \sum^{\gamma}_{k=1} \gamma \times k (T_{ik} - \hat{p}(Z_{it})) * 1(G_k) + \theta \times \hat{Died^C}(Z_{it}) + \epsilon_{it}$$
+$$Died_{it} = \alpha + \sum^{\gamma}_{k=1} \gamma \times k (T_{ik} - \hat{p}(Z_{it})) * 1(G_k) + \theta \times \hat{Died^C}(Z_{it}) + \epsilon_{it}\tag{3}$$
 
 The authors argue that computational constraints make it unable to include country, state-by month and month by year fixed effects in this regression. 
 Instead the authors propose the usuage of month, year and division fixed effects. 
@@ -143,7 +154,6 @@ Open Points:
 **fixed effects geography**
 
 * Authors include FE for geography but dont include it as a source of heterogeneity in treatment (same would be interesting for demographic features)
-* 
 
 **Performance of gradient boosted decision tree**:
 
@@ -152,10 +162,6 @@ Open Points:
 * Further, again no prediction accuracy scores are reported which would have been interesting (even if not of central importance) to get a gist of actual predictive performance to put the entire analysis into proportion 
 * Suppose the prediction would have been at either one of the extremes such an extremely high or low MSE, it would have been interesting to see and would have allowed some more insights into the relationship of different predictors. 
 * Especially also looking at e.g. bagging (Random Forest) and boosting methods (used here), it would have been insightful for completeness to see actual difference even if so marginal, giving the machine learning methods more attention and existential justification.
-
-**Interpretable ML:**
-
-
 
 ### Model evaluation for ML 
 
@@ -171,7 +177,9 @@ For more robustness, usally one compares the different thresholds of the data (2
 
 ### Contribution of the CDDF Approach 
 
-
+This appraoch is very new has not been implemented by many studies.
+Essentially, the argument states that one can use machine learning tools to disentangle heterogeneity without violating any important assumptions within economics.
+Henceforth, machine learning methods allow Economists to undertake feature selection despite inducing bias because we are not interested in the prediction itself. 
 
 ### Usage of OLS regression 
 
