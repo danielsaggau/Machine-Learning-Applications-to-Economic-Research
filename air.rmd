@@ -21,7 +21,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This research paper examines heterogeneity in mortality, health care and medical costs caused by pollution exposure.
 Specifically, this paper focuses on heterogeneity in age, suggesting that a small subset of the elderly population is most vulnerable to pollution.
-The authors use an instrumental variable approach.
+Deryugina et al. (2019) use an instrumental variable approach.
 They instruments for air pollution by leveraging changes in wind direction to estimate the causal impact of fine particular matter PM 2.5 on mortality and health care usuage, undertaking a in the dataset with a sample of 40 billion observations.
 To complement these insights, the authors use various survival models to estimate life expectancy, also looking at two machine learning methods namely a cox-lasso model and a random survival forest, providing very similar estimates.
 These estimates are subsequently used for further analysis and for the calculation of pollution exposure costs. 
@@ -30,11 +30,11 @@ Thereafter, the study disentangles variation in exposure using the generic machi
 We can see that there is a near 0 effect among 75 percent of their sample looking at elderly beneficiaries.
 But the CDDF approach allows us to disentangle heterogeneity, and shows that from the 5 percentage threshold of the most vulnerable elderly population onward, pollution exposure has a very severe effect.
 Moreover, the study illustrates that the 'mortality burden' is predominately placed within the elderly population with five to ten and two to five years remaining. 
-Their research accounts for fixed effects, climate variables, changes in country's daily wind direction,lag variables, various pollution scores and weather conditions.
+Deryugina et al. (2019) account for fixed effects, climate variables, changes in country's daily wind direction,lag variables, various pollution scores and weather conditions.
 
 # Data 
 
-The authors looked at three factors namely (1) air pollution, (2) atmospheric conditions and (3) mortality, morbidity and medical costs.
+Deryugina et al. (2019) look at three factors namely (1) air pollution, (2) atmospheric conditions and (3) mortality, morbidity and medical costs.
 
 Air pollution is measured looking at fine particular matter PM 2.5.
 Data on PM 2.5 is provided by the Air Quality System Database, provided by the EPA starting in 1999.
@@ -47,7 +47,7 @@ To supplement this information, the authors obtain information on temperature an
 Measures are averaged to get county-day level measures. 
 Mortality, morbidity and medical costs are measured by using medicare administrative data. 
 The sample focuses on beneficiaries between the age of 65 and 100 years.
-To calculate medical costs, the authors use the Medicare Provider Analysis and Review File (MedPAR).
+To calculate medical costs, Deryugina et al. (2019) use the Medicare Provider Analysis and Review File (MedPAR).
 The unit of observation for these costs is the individual patient level. 
 For the subsequent survival models, the authors also look at individual chronic conditions, to add to existing studies that only look at age and sex. 
 
@@ -109,7 +109,7 @@ Random forest methods allow for considerable freedom due to their non-parametric
 The regularization method induces a penalization term which is guarded by the parameter lambda, weighting the trade off between bias and variance. 
 The authors report all life expectancy estimates for the different methods (Medicare FFS average, cox, cox with more covariates, survival random forest, cox-lasso). 
 One should note, that there is a substantial drop in expected life expectancy when accounting for these chronic conditions and other non-health characteristics. 
-The machine learning methods propose the lowest predicted life expectancy in years. 
+The machine learning methods propose the lowest predicted life expectancy. 
 
 ## Treatment Effect Heterogeneity
 
@@ -130,7 +130,7 @@ $\hat{Died^C}(Z_{it})$ are their control variables.
 Henceforth, the $\beta_1$ in the first part of the regression looks at the score of being in a treatment ($T_it$) versus predicted treatment($\hat{p}(Z_{it})$).
 The second part of the regression looks at the same relationship but multiplying this term with $\hat{S}(Z_{it})-\bar{\hat{S}}$ where $\hat{S}(Z_{it})$ is the estimated deaths in treatment versus estimated deaths in control group and $\bar{\hat{S}}$ is average across the entire sample. 
 As suggested by the authors, CCDF show that those terms are the best linear predictor of the conditional average treatment effect, allowing us to use the proxy predictor for this analysis.
-Next, the authors introduce a sorted group average treatment effect equation.
+Next, the Deryugina et al. (2019) introduce a sorted group average treatment effect equation.
 The notation is as follows:
 
 $$Died_{it} = \alpha + \sum^{\gamma}_{k=1} \gamma \times k (T_{ik} - \hat{p}(Z_{it})) * 1(G_k) + \theta \times \hat{Died^C}(Z_{it}) + \epsilon_{it}\tag{4}$$
@@ -138,8 +138,8 @@ $$Died_{it} = \alpha + \sum^{\gamma}_{k=1} \gamma \times k (T_{ik} - \hat{p}(Z_{
 Here, the paper uses an indicator function $1(G_k)$ see whether the prediction lies within within the kth interval or not. 
 Of special interest is the gamma parameter, an estimate for the ATE for the group k.
 Two further challenges are addressed. 
-On the one hand the authors down-sample because the probability of dying is small and fairs poorly without doing so. 
-The authors argue that computational constraints make it impossible to include country, state-by month and month by year fixed effects in this regression. 
+Firstly, Deryugina et al. (2019) down-sample because the probability of dying is small and fairs poorly without doing so. 
+Secondly, the authors argue that computational constraints make it impossible to include country, state-by month and month by year fixed effects in this regression. 
 Their research employs subgroups to estimate the equations and averages, using 250 subsets.
 
 # Results 
@@ -149,7 +149,7 @@ Due to time constraints, this analysis will not go into detail for every table.
 For the results on mortality by age group the authors present both OLS and IV estimates, while one should note that OLS indicate significant bias. 
 Same relationship holds for the health care usage results. 
 The results of PM 2.5 exposure on estimates for the life years lost indicate that there is significant heterogeneity when accounting for more covariates.
-Using a 'back of the envelop calculation' the authors also propose a cost estimate.
+Using a 'back of the envelop calculation' Deryugina et al. (2019) also propose a cost estimate.
 One should note that with the lower life years estimates, these costs also reduce (around $76 billion dollars lower). 
 Moreover, the study introduces the estimates for the different age groups proposed by the CDDF approach and subsequently also explore robustness by taking into account other pollution measures, weather controls and lags, too.
 
@@ -232,7 +232,7 @@ Accounting for factors like geography would have unfolded further variation in o
 ## Other Minor Considerations 
 
 **Feature Selection:** Given that the paper uses so many control variables, it would have been nice to actually include a feature selection stage for the core regression. 
-Here, the authors focus on feature selection for the main features and estimates but not for the other control variables. 
+Here, Deryugina et al. (2019) focus on feature selection for the main features and estimates but not for the other control variables. 
 For transparency, this would have been a nice addition.
 
 **Autocorrelation:** The problem with using lags is determining the lag structure of our data. 
