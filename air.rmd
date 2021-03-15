@@ -71,12 +71,12 @@ For mortality we look at death per million beneficiaries as a three day total.
 For health care use the authors look at emergency room visits.
 The authors use estimates for ER visits that lead to hospital submission and as a placebo also looking at planned admissions.
 This measure should be independent of pollution.
+The study accounts for various fixed effects such as country level fixed effects, state by month level fixed effects and month by year level fixed effects. 
 Fixed effects are notated as $\alpha_c$ for state by county, $\alpha_{sm}$ for state by month, and $\alpha_{my}$ for month by year fixed effects.   
-
+X is our specification for the remaining control variables. 
 The authors use health care spending as a measure for medical costs and also look at health care.
 These measures are corrected for confounding factors. 
-The study accounts for various fixed effects such as country level fixed effects, state by month level fixed effects and month by year level fixed effects. 
-Subsequently, the authors take the estimates and aggregate them to the country level, weighting by population per capita as the dependent variable.
+Subsequently, their study take the estimates and aggregate them to the country level, weighting by population per capita as the dependent variable.
 
 Further the authors cluster air pollution monitors to ensure that pollution not dependent on the location of the monitor using k-means algorithm and creating 100 spatial groups.
 This approach allows for robustness against bias caused by selective placing of pollution monitors. 
@@ -93,7 +93,7 @@ WINDDIR is equal to 1 if the direction in the country falls within the bandwidth
 The alpha measures are the defined in the same manner as for the first equation.
 Further, the authors argue that non-local pollution (traveling) will be the driving force of variation within the second equation because the non-local effects will be more likely to have similar effects as opposed to the local effects which are more susceptible to differ.
 The effect of wind direction is confined by using bins.
-X is our specification for the remaining control variables. 
+The specification for the remaining control variables is X, again. 
 Further, this specification captures variation dependent on wind changes and their affect on local pollution.
 
 ## Life-Years Lost 
@@ -199,16 +199,27 @@ Solely based on the research presented in this paper, one cannot exclude that th
 
 ## Contribution of the CDDF Approach and considerations 
 
+One central issue for the CDDF is that performance evaluation tools are missing.
+As mentioned above, the authors argue that due to the argument that prediction is not of central importance, one does not need to report performance evaluation metrics.
+These scores would have been interesting (even if not of central importance) to get an idea of actual predictive performance to put the entire analysis into perspective.
+This would have given the machine learning methods more attention and ground for justification.
+A single proxy estimator for treatment heterogeneity is hard to contextualize and evaluate. 
 Rather than introducing a random forest for survival analysis, for the treatment effect heterogeneity one could have actually used these methods to see if there are any difference in generic machine learning methods. 
 Especially also looking at e.g. bagging (Random Forest) and boosting methods (used here), it would have been insightful for completeness to see actual difference between machine learning methods even if so marginal. 
 It would have been a more compelling addition as opposed to the survival random forest which was not in the center stage of the analysis.
-Further, performance evaluation tools are missing entirely, again due to the argument that prediction is not of central importance.
-These scores would have been interesting (even if not of central importance) to get a gist of actual predictive performance to put the entire analysis into perspective.
-This would have given the machine learning methods more attention and ground for justification.
-A single proxy estimator for treatment heterogeneity is hard to contextualize and evaluate. 
-One should also note that one could have looked at causal forests for lower dimensional and conditional average treatment effects, which is less prone to splitting uncertainty. 
-Unfortunately, for this problem, the causal random forest is not applicable. 
-Further the CDDF approach shows that one can utilize generic machine learning methods without violating any assumptions, given the different trajectory. 
+One should also note that one could should consider the difference between using generic machine learning methods versus e.g. a causal random forest. 
+One can use a causal random forests for lower dimensional data focusing on the conditional average treatment effects. 
+Causal random forests are less prone to error caused by splitting uncertainty.
+Unfortunately, for this problem, the causal random forest is not applicable because we are working with a high dimensional dataset.
+One could argue that due to the sample size, one might be less vulnerable towards splitting error. 
+Additionally, the CDDF approach shows that one can utilize generic machine learning methods without violating any assumptions, given the different trajectory.
+Irrespective, the uncertainty remains.
+
+Nevertheless, one should also note that this approach is a substantial contribution.
+Not only do the results coalign with the results provided by the estimated life expectancy, but this method proposed novel opportunity to intertwine state of the art machine learning methods for economic research questions. 
+Not many papers have actually utilized this novel approach, and this extensive research paper provides a further pathway of acceptance to use these statistical tools despite their shortcomings with respect to interpretation.
+Further, this also illustrates that there is room within economics for other machine learning tools concerned with similar trajectories. 
+One example is interpretable machine learning, where the goal is to remove complexity from black box models and create models that are interpretable and usable for a broader audience, including policy researchers. 
 
 ## Heterogeneity in our Sample 
 
@@ -220,22 +231,16 @@ Accounting for factors like geography would have unfolded further variation in o
 
 ## Other Minor Considerations 
 
-**Usage of OLS regression** 
-
-Given that the paper uses so many control variables, it would have been nice to actually include a feature selection stage for the core regression. 
+**Feature Selection:** Given that the paper uses so many control variables, it would have been nice to actually include a feature selection stage for the core regression. 
 Here, the authors focus on feature selection for the main features and estimates but not for the other control variables. 
 For transparency, this would have been a nice addition.
 
-**Autocorrelation: Analysis for Optimal lag structure**
-
-The problem with using lags is determining the lag structure of our data. 
+**Autocorrelation:** The problem with using lags is determining the lag structure of our data. 
 Here, we simple use a single year lag which is somewhat naive, because we don't know whether the medicare data would actually translate in that manner. 
 This is a potential source of miss-specification. 
 Including an analysis on this issue in the appendix, would have allowed for more transparency. 
 
-**Atmospheric science models**
-
-Due to the vast number of observations and data, it is computationally unfeasible to apply advanced tools from atmospheric science models here. 
+**Atmospheric science models:** As suggested by the authors themselves, due to the vast number of observations and data, it is computationally  not feasible to apply advanced tools from atmospheric science models here. 
 Henceforth one can only speculate how these models would have performed.
 
 # Conclusion 
@@ -245,16 +250,20 @@ Essentially, this study does provide systemic evidence for heterogeneity in trea
 Irrespective, there are various things that could have been done to enhance scientific rigor. 
 The biggest shortcoming was the implementation of the various machine learning methods.
 There was no substantial improvement for the life expectancy estimates by using these tools as compared to the extensive cox-model for the estimated life expectancy estimates.
-What is even worse is the disregard for actual model evaluation, reducing their credibility. 
+One instrumental consideration is the disregard for actual model evaluation, reducing their credibility. 
 The argument that precision is only important for identification when results differ is not very rigorous.
+
 With respect to the second machine learning method for treatment effect heterogeneity one should also consider the lack of scope in the treatment heterogeneity. 
 We clearly see strong variation in age groups when it comes to treatment heterogeneity, but this is just one of many instrumental factors to consider. 
+Nevertheless, one should also note that this research paper is a tremendous contribution to existing research.
+This study truly shows the versatility of machine learning tools for applications in a systematic manner.
+The CDDF approach illustrates great potential for future research to disentangle treatment heterogeneity for other factors such as in this case demographic and socio-economic variation.
 
-### Unanswered Questions 
+**Unanswered Questions**
 
-As mentioned, this paper truely addresses a broader field of research. 
 One of the many interesting questions that remain unanswered is the effect of pollution in other shares of the populations. 
-Even looking at the new research paper published by the mostly same research team (apart from one coauthor), there is no consideration for other subgroups. This is a pivotal shortcoming, given the strong policy statements given in this and the subsequent paper by these authors. 
+Even looking at the new research paper published by the mostly same research team (apart from one coauthor), there is no consideration for other subgroups.
+This is a pivotal shortcoming, given the strong policy statements given in this and the subsequent paper by these authors. 
 One interesting addition would be looking at infant mortality and the impact of pollution on younger age groups. 
 Is it ethical to ground policy decisions solely based on analyses using subgroups of the population? 
 In other terms, is it fair to make pollution reduction policies without accounting for other subgroups suscept to pollution exposure?
