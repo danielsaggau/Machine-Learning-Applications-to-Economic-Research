@@ -26,11 +26,11 @@ Using this instrument, they conduct a quasi-experimental investigation.
 Their research ensures robustness by looking at fixed effects, climate variables, changes in country's daily wind direction.
 The authors use various survival models, also looking at two machine learning methods namely a cox-lasso model and for reference a random survival forest. 
 Individual level estimates are aggregate to get a country level measure. 
-Their research estimates costs caused by exposure to pollution.
+The study estimates costs caused by exposure to pollution.
 The argument suggests that the 'mortality burden' is predominately placed within the elderly population with five to ten or two to five years remaining. 
 Further, the authors introduce an estimate for life years left, arguing that life expectancy is a better indicator for vulnerability to pollution. 
 This study disentangles variation in exposure using the generic machine learning approach by Chernozhukov et al. (2018).
-We can see that there is a near 0 effect among 75 percent of our sample looking at elderly beneficiaries.
+We can see that there is a near 0 effect among 75 percent of their sample looking at elderly beneficiaries.
 But the CDDF approach allows us to disentangle heterogeneity, and shows that from the 5 percentage threshold of the most vulnerable elderly population onward, pollution exposure has a very severe effect.
 
 # Data 
@@ -55,11 +55,11 @@ Here, this paper ensures that there is no mortality displacement by using other 
 
 # Methods (Empirical Strategies)
 
-The methods and results are divided into tree subsections, firstly looking at (1) mortality and health care use, the looking at (2) life years lost and thirdly (3) looking at treatment effect heterogeneity. 
+The methods and results are divided into three subsections, firstly looking at (1) mortality and health care use, then looking at (2) life years lost and thirdly (3) looking at treatment effect heterogeneity. 
 
 ## Mortality and health care use
 
-Deryugina et al. suggest the following equation:
+Deryugina et al. (2019) suggest the following equation:
 
 $$
 Y_{cdmy} = \beta \times PM 2.5 + X' _{cdmy} \times \gamma + \alpha_c + \alpha_{as}+ \alpha_{my} + \epsilon_{cdmy}\tag{1}
@@ -73,16 +73,17 @@ The authors use estimates for ER visits that lead to hospital submission and as 
 This measure should be independent of pollution.
 The study accounts for various fixed effects such as country level fixed effects, state by month level fixed effects and month by year level fixed effects. 
 Fixed effects are notated as $\alpha_c$ for state by county, $\alpha_{sm}$ for state by month, and $\alpha_{my}$ for month by year fixed effects.   
-X is our specification for the remaining control variables. 
-The authors use health care spending as a measure for medical costs and also look at health care.
+X is their specification for the remaining control variables. 
+The authors use health care spending as a measure for medical costs and also look at health care usage.
 These measures are corrected for confounding factors. 
 Subsequently, their study take the estimates and aggregate them to the country level, weighting by population per capita as the dependent variable.
 
-Further the authors cluster air pollution monitors to ensure that pollution not dependent on the location of the monitor using k-means algorithm and creating 100 spatial groups.
+Further the authors create clusters for air pollution monitors to ensure that pollution not dependent on the location of the monitor.
+They create 100 spatial groups, using k-means algorithm.
 This approach allows for robustness against bias caused by selective placing of pollution monitors. 
 As mentioned, the paper uses an IV-strategy using daily wind direction.
 The first stage equation is defined as: 
-Geographic variation is enabled by using the interaction coefficient $\beta$.
+Geographic variation which is enabled by using the interaction coefficient $\beta$.
 
 $$
 PM 2.5 _{cdmy} = \sum_{g \in G} \sum^2_{b=0} \beta^g_b1[G_c=g] \times WINDDIR^{90b}_{cdmy} + X'_{cdmy} \sigma + \alpha_c+ \alpha_sm + \alpha_my + \epsilon_{cdmy}\tag{2}
@@ -103,7 +104,7 @@ Here, we want to disentangle the effect of pollution as opposed to average life 
 To measure life years lost usually one needs information on counterfactual life expectancy which is unobserved.
 Previous studies use e.g. counterfactual life expectancy via population life tables.
 The solution proposed in this paper is using a rich set of different health and non-health characteristics to add to existing estimates only looking at sex and age.
-The authors also comparing propose estimates based on machine learning methods which allow us to enable feature selection.
+The authors also propose estimates based on machine learning methods which allow us to enable feature selection.
 As mentioned the authors use a non-parametric model, a survival forest, and a regularization based model, a least absolute shrinkage and selection operator (LASSO) with a cox proportional hazard model. 
 The regularization method induces a penalization term which is guarded by the parameter lambda, weighting the trade off between bias and variance. 
 The lasso model is a commonly used too due to its properties allowing one to induce further scarcity.
@@ -113,20 +114,20 @@ The machine learning methods propose the lowest predicted life expectancy in yea
 
 ## Treatment Effect Heterogeneity
 
-To disentangle heterogeneity in our treatment this paper uses the CDDF approach proposed by Chernozhukov et al. (2018) to look at heterogeneity in age for the model looking at mortality.
+To disentangle heterogeneity in their treatment this paper uses the CDDF approach proposed by Chernozhukov et al. (2018) to look at heterogeneity in age for the model looking at mortality.
 The authors focus on estimating the best linear predictor of conditional average treatment effect under general conditions.
 The authors use a gradient boosted decision tree as a machine learning method for identification of treatment heterogeneity.
 We can get a proxy predictor based on this machine learning method.
 Using this proxy predictor one can now construct a weighted regression, generate a pooled sample with control and treatment group observations.
 
-The introduce the following notation: 
+Their research paper introduces the following notation: 
 
 $$Died_{it} = \alpha +  \beta_1 (T_{ik}  - \hat{p}(Z_{it}) + \beta_2 (T_{ik} - \hat{p}(Z_{it}))  (\hat{S}(Z_{it})-\bar{\hat{S}}) + \theta \hat{Died^C}(Z_{it}) + \epsilon_{it}\tag{3}$$
 
 Where $\hat{S}(Z_{it})$ is the proxy predictor for mortality.
 The outcome died is equal to 1 if the patient died (and 0 otherwise), $\hat{p}(Z_{it})$ is the propensity score of treatment. 
 $\bar{\hat{S}}$ is the average of the proxy predictor. 
-$\hat{Died^C}(Z_{it})$ are our control variables. 
+$\hat{Died^C}(Z_{it})$ are their control variables. 
 Henceforth, the $\beta_1$ in the first part of the regression looks at the score of being in a treatment ($T_it$) versus predicted treatment($\hat{p}(Z_{it})$).
 The second part of the regression looks at the same relationship but multiplying this term with $\hat{S}(Z_{it})-\bar{\hat{S}}$ where $\hat{S}(Z_{it})$ is the estimated deaths in treatment versus estimated deaths in control group and $\bar{\hat{S}}$ is average across the entire sample. 
 As suggested by the authors, CCDF show that those terms are the best linear predictor of the conditional average treatment effect, allowing us to use the proxy predictor for this analysis.
@@ -144,8 +145,8 @@ Their research employs subgroups to estimate the equations and averages (using 2
 
 # Results 
 
-There are 10 result tables that are included in the main paper. 
-Due to time constraints, we wont go into detail for every table. 
+There are 10 result-tables that are included in the main paper. 
+Due to time constraints, this analysis will not go into detail for every table. 
 For the results on mortality by age group the authors present both OLS and IV estimates, while one should note that OLS indicate significant bias. 
 Same relationship holds for the health care usage results. 
 The results of PM 2.5 exposure on estimates for the life years lost indicate that there is significant heterogeneity when accounting for more covariates.
@@ -157,7 +158,8 @@ In the conclusion, their study suggests that policy makers looking at the effect
 # Conclusion 
 
 The contribution to the literature of this paper is suggested to be twofold.
-Firstly, this paper spends a sizable amount of defining a suitable estimate for life years left, partially by introducing machine learning for time to event studies for a economics study, looking beyond age and sex as determinants for life expectancy. 
+Firstly, the paper spends a sizable amount of time defining a suitable estimate for life years left.
+The authors suggest machine learning for time to event studies, looking beyond age and sex as determinants for life expectancy  to complement existing methods and for applications in economics. 
 Specifically, this paper uses two machine learning methods namely survival random forest and a cox-lasso model.
 Secondly, this paper uses this proposed generic machine learning for inference on heterogeneous treatment effects to a quasi-experimental study.
 
@@ -167,7 +169,7 @@ This section will evaluate some of the most important or debatable components of
 First, I will discuss the model evaluation for the predicted life expectancy.
 Afterwards, I will focus on the added value of using different machine learning methods.
 Subsequently, I will discuss other sources of heterogeneity that are ignored in this study.
-Lastly, I will take about further measures to improve robustness and open questions. 
+Thereafter, I will talk about further measures to improve robustness and open questions. 
 
 ## Model Evaluation: Machine Learning for Survival Studies
 
@@ -181,7 +183,7 @@ Model evaluation for classical classification tasks and survival tasks different
 To accommodate the right censored nature of our data (50 % of the individuals in our sample don't die within the time frame), we would use methods employing an estimation for our right censored observations e.g. via inverse weighted propensity estimates (IWPC).
 Not going into too much detail, we could have used the concordance statistics (in short c-statistics) or a brier score here to evaluate the performance. 
 For more robustness, usually one  would compare performance for the different thresholds within the data (typically: 25, 50, 75 percentage quantiles).
-Suppose the prediction would have been at either one of the extremes such an extremely high or low MSE, it would have been interesting to see and would have allowed some more insights into the relationship of different predictors.
+Suppose the prediction would have been at either one of the extremes, such an extremely high or low MSE, it would have been interesting to see and would have allowed some more insights into the relationship of different predictors.
 
 ## Added Value of Survival Analysis via Machine Learning 
 
@@ -207,8 +209,8 @@ A single proxy estimator for treatment heterogeneity is hard to contextualize an
 Rather than introducing a random forest for survival analysis, for the treatment effect heterogeneity one could have actually used these methods to see if there are any difference in generic machine learning methods. 
 Especially also looking at e.g. bagging (Random Forest) and boosting methods (used here), it would have been insightful for completeness to see actual difference between machine learning methods even if so marginal. 
 It would have been a more compelling addition as opposed to the survival random forest which was not in the center stage of the analysis.
-One should also note that one could should consider the difference between using generic machine learning methods versus e.g. a causal random forest. 
-One can use a causal random forests for lower dimensional data focusing on the conditional average treatment effects. 
+One should also note that one could should consider the difference between using generic machine learning methods versus e.g. a causal random forest which is modified for applications in economics. 
+One can use a causal random forests for lower dimensional data when estimating conditional average treatment effects. 
 Causal random forests are less prone to error caused by splitting uncertainty.
 Unfortunately, for this problem, the causal random forest is not applicable because we are working with a high dimensional dataset.
 One could argue that due to the sample size, one might be less vulnerable towards splitting error. 
@@ -223,7 +225,7 @@ One example is interpretable machine learning, where the goal is to remove compl
 
 ## Heterogeneity in our Sample 
 
-Only use random 5 percent of FFS medicare sample, still amounting to 1.2 million individuals. 
+By utilizing only 5 percent of FFS medicare data, the authors still use 1.2 million individuals. 
 This subset is justified in the paper as a tool for computational ease. 
 While they do run the regression multiple times, it might have been nice to see other medicare beneficiaries.
 By disentangling the sample even further, one could potential discover even more heterogeneity. 
@@ -266,7 +268,7 @@ Even looking at the new research paper published by the mostly same research tea
 This is a pivotal shortcoming, given the strong policy statements given in this and the subsequent paper by these authors. 
 One interesting addition would be looking at infant mortality and the impact of pollution on younger age groups. 
 Is it ethical to ground policy decisions solely based on analyses using subgroups of the population? 
-In other terms, is it fair to make pollution reduction policies without accounting for other subgroups suscept to pollution exposure?
+In other terms, is it fair to make pollution reduction policies without accounting for other subgroups susceptible to pollution exposure?
 Further, there are more convoluted aspects that remain hard to disentangle.
 It remains uncertain whether we will be able to causally disentangle the impact of pollution accounting for true long-run heterogeneity within exposure.
 Ultimately, the question remains whether these insights will really be causal or merely a mere approximation of an causal effect, capturing some other sort of variation due to omitted factors. 
