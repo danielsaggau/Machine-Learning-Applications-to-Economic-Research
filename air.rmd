@@ -19,39 +19,37 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduction 
 
-This research paper examines heterogeneity in mortality, health care and medical costs caused by pollution.
+This research paper examines heterogeneity in mortality, health care and medical costs caused by pollution exposure.
 Specifically, this paper focuses on heterogeneity in age, suggesting that a small subset of the elderly population is most vulnerable to pollution.
-This paper instruments for air pollution by leveraging changes in wind direction to estimate the causal impact of PM 2.5 on health using a subset of a sample of 40 billion observations.
-Using this instrument, they conduct a quasi-experimental investigation. 
-Their research ensures robustness by looking at fixed effects, climate variables, changes in country's daily wind direction.
-The authors use various survival models, also looking at two machine learning methods namely a cox-lasso model and for reference a random survival forest. 
-Individual level estimates are aggregate to get a country level measure. 
-The study estimates costs caused by exposure to pollution.
-The argument suggests that the 'mortality burden' is predominately placed within the elderly population with five to ten or two to five years remaining. 
-Further, the authors introduce an estimate for life years left, arguing that life expectancy is a better indicator for vulnerability to pollution. 
-This study disentangles variation in exposure using the generic machine learning approach by Chernozhukov et al. (2018).
+The authors use an instrumental variable approach.
+They instruments for air pollution by leveraging changes in wind direction to estimate the causal impact of fine particular matter PM 2.5 on mortality and health care usuage, undertaking a in the dataset with a sample of 40 billion observations.
+To complement these insights, the authors use various survival models to estimate life expectancy, also looking at two machine learning methods namely a cox-lasso model and a random survival forest, providing very similar estimates.
+These estimates are subsequently used for further analysis and for the calculation of pollution exposure costs. 
+Their research suggests that life expectancy is a better indicator for vulnerability to pollution.
+Thereafter, the study disentangles variation in exposure using the generic machine learning approach by Chernozhukov et al. (2018).
 We can see that there is a near 0 effect among 75 percent of their sample looking at elderly beneficiaries.
 But the CDDF approach allows us to disentangle heterogeneity, and shows that from the 5 percentage threshold of the most vulnerable elderly population onward, pollution exposure has a very severe effect.
+Moreover, the study illustrates that the 'mortality burden' is predominately placed within the elderly population with five to ten and two to five years remaining. 
+Their research accounts for fixed effects, climate variables, changes in country's daily wind direction,lag variables, various pollution scores and weather conditions.
 
 # Data 
 
-This section looked at the different dataset. 
-The authors looked at (1) air pollution, (2) atmospheric conditions and (3) mortality, morbidity and medical costs.
+The authors looked at three factors namely (1) air pollution, (2) atmospheric conditions and (3) mortality, morbidity and medical costs.
 
-Air pollution is measured looking at PM 2.5 given in the Air Quality System Database, provided by the EPA starting in 1999.
-Other measures are also included in the dataset such as sulfur dioxide, ozone, nitrogen dioxide and carbon monoxide.
-For atmospheric conditions, we use information on wind speed and wind direction for the years 1999-2013 given within the North American Regional Reanalysis (NARR) daily reanalysis data.
+Air pollution is measured looking at fine particular matter PM 2.5.
+Data on PM 2.5 is provided by the Air Quality System Database, provided by the EPA starting in 1999.
+Other air pollution measures such as sulfur dioxide, ozone, nitrogen dioxide and carbon monoxide are also include in the dataset.
+For atmospheric conditions, the authors use information on wind speed and wind direction for the years 1999-2013 given within the North American Regional Reanalysis (NARR) daily reanalysis data.
 Information on Wind is reported at the level of a 32 by 32 kilometer grid with two vector pairs.
-The authors use interpolation between grid points to estimate the components entailing two different directions.
+This study uses interpolation between grid points to estimate the components entailing two different directions.
 Average measures are subsequently transformed into wind direction and speed at the county level.
 To supplement this information, the authors obtain information on temperature and precipitation data from Schlenker and Roberts (2009).
-Again, measures are averaged to get county-day level measures. 
- Mortality, morbidity and medical costs are measured by using medicare administrative data. 
-The sample focuses on beneficiaries between 65 and 100 years old.
+Measures are averaged to get county-day level measures. 
+Mortality, morbidity and medical costs are measured by using medicare administrative data. 
+The sample focuses on beneficiaries between the age of 65 and 100 years.
 To calculate medical costs, the authors use the Medicare Provider Analysis and Review File (MedPAR).
 The unit of observation for these costs is the individual patient level. 
-For the subsequent survival models, the authors also look at individual chronic conditions, to add to existing studies only looking at age and sex. 
-Here, this paper ensures that there is no mortality displacement by using other time windows (5,14,28 days).
+For the subsequent survival models, the authors also look at individual chronic conditions, to add to existing studies that only look at age and sex. 
 
 # Methods (Empirical Strategies)
 
@@ -59,6 +57,9 @@ The methods and results are divided into three subsections, firstly looking at (
 
 ## Mortality and health care use
 
+As mentioned one is looking at mortality and health care use.
+For mortality the authors look at death per million beneficiaries as a three day total.
+The paper ensures that there is no mortality displacement by using other time windows (5,14,28 days) for robustness.
 Deryugina et al. (2019) suggest the following equation:
 
 $$
@@ -66,17 +67,15 @@ Y_{cdmy} = \beta \times PM 2.5 + X' _{cdmy} \times \gamma + \alpha_c + \alpha_{a
 $$
 
 Here, Y is the outcome variable. 
-As mentioned we are looking at mortality and health care use.
-For mortality we look at death per million beneficiaries as a three day total.
 For health care use the authors look at emergency room visits.
-The authors use estimates for ER visits that lead to hospital submission and as a placebo also looking at planned admissions.
+This study uses estimates for ER visits that lead to hospital submission and as a placebo also looking at planned admissions.
 This measure should be independent of pollution.
 The study accounts for various fixed effects such as country level fixed effects, state by month level fixed effects and month by year level fixed effects. 
-Fixed effects are notated as $\alpha_c$ for state by county, $\alpha_{sm}$ for state by month, and $\alpha_{my}$ for month by year fixed effects.   
-X is their specification for the remaining control variables. 
-The authors use health care spending as a measure for medical costs and also look at health care usage.
+Fixed effects are notated as $\alpha_c$ for state by county, $\alpha_{sm}$ for state by month, and $\alpha_{my}$ for month by year fixed effects.
+X is their specification for the remaining control variables.
+X entails 28899 weather conditions of which approximately 9300 are included per day and 27900 per regression. 
 These measures are corrected for confounding factors. 
-Subsequently, their study take the estimates and aggregate them to the country level, weighting by population per capita as the dependent variable.
+Subsequently, their research takes the estimates and aggregate them to the country level, weighting by population per capita as the dependent variable.
 
 Further the authors create clusters for air pollution monitors to ensure that pollution not dependent on the location of the monitor.
 They create 100 spatial groups, using k-means algorithm.
@@ -90,17 +89,15 @@ PM 2.5 _{cdmy} = \sum_{g \in G} \sum^2_{b=0} \beta^g_b1[G_c=g] \times WINDDIR^{9
 $$
 
 The excluded variables are defined within the indicator function.
-WINDDIR is equal to 1 if the direction in the country falls within the bandwidth of the 90 degree interval and 0 otherwise. 
+The indicator function for WINDDIR is equal to 1 if the direction in the country falls within the bandwidth of the 90 degree interval and 0 otherwise. 
 The alpha measures are the defined in the same manner as for the first equation.
-Further, the authors argue that non-local pollution (traveling) will be the driving force of variation within the second equation because the non-local effects will be more likely to have similar effects as opposed to the local effects which are more susceptible to differ.
+Furthermore, the authors argue that non-local pollution (traveling) will be the driving force of variation within the second equation because the non-local effects will be more likely to have similar effects as opposed to the local effects which are more susceptible to differ.
 The effect of wind direction is confined by using bins.
 The specification for the remaining control variables is X, again. 
-Further, this specification captures variation dependent on wind changes and their affect on local pollution.
+This specification captures variation dependent on wind changes and their affect on local pollution.
 
 ## Life-Years Lost 
 
-To account for mortality displacement outside of the mentioned window of days, this paper also estimates number of life years lost due to pollution exposure.
-Here, we want to disentangle the effect of pollution as opposed to average life years.
 To measure life years lost usually one needs information on counterfactual life expectancy which is unobserved.
 Previous studies use e.g. counterfactual life expectancy via population life tables.
 The solution proposed in this paper is using a rich set of different health and non-health characteristics to add to existing estimates only looking at sex and age.
@@ -108,7 +105,7 @@ The authors also propose estimates based on machine learning methods which allow
 As mentioned the authors use a non-parametric model, a survival forest, and a regularization based model, a least absolute shrinkage and selection operator (LASSO) with a cox proportional hazard model. 
 The regularization method induces a penalization term which is guarded by the parameter lambda, weighting the trade off between bias and variance. 
 The lasso model is a commonly used too due to its properties allowing one to induce further scarcity.
-The authors report all estimates for the different methods (Medicare FFS average, cox, cox with more covariates, survival random forest, cox lasso). 
+The authors report all estimates for the different methods (Medicare FFS average, cox, cox with more covariates, survival random forest, cox-lasso). 
 There is a substantial drop in expected life expectancy when accounting for these chronic conditions and other non-health characteristics. 
 The machine learning methods propose the lowest predicted life expectancy in years. 
 
@@ -117,12 +114,12 @@ The machine learning methods propose the lowest predicted life expectancy in yea
 To disentangle heterogeneity in their treatment this paper uses the CDDF approach proposed by Chernozhukov et al. (2018) to look at heterogeneity in age for the model looking at mortality.
 The authors focus on estimating the best linear predictor of conditional average treatment effect under general conditions.
 The authors use a gradient boosted decision tree as a machine learning method for identification of treatment heterogeneity.
-We can get a proxy predictor based on this machine learning method.
+One can get a proxy predictor based on this gradient boosted decision tree.
 Using this proxy predictor one can now construct a weighted regression, generate a pooled sample with control and treatment group observations.
 
 Their research paper introduces the following notation: 
 
-$$Died_{it} = \alpha +  \beta_1 (T_{ik}  - \hat{p}(Z_{it}) + \beta_2 (T_{ik} - \hat{p}(Z_{it}))  (\hat{S}(Z_{it})-\bar{\hat{S}}) + \theta \hat{Died^C}(Z_{it}) + \epsilon_{it}\tag{3}$$
+$$Died_{it} = \alpha + \beta_1 (T_{ik} - \hat{p}(Z_{it}) + \beta_2 (T_{ik} - \hat{p}(Z_{it}))  (\hat{S}(Z_{it})-\bar{\hat{S}}) + \theta \hat{Died^C}(Z_{it}) + \epsilon_{it}\tag{3}$$
 
 Where $\hat{S}(Z_{it})$ is the proxy predictor for mortality.
 The outcome died is equal to 1 if the patient died (and 0 otherwise), $\hat{p}(Z_{it})$ is the propensity score of treatment. 
@@ -159,7 +156,7 @@ In the conclusion, their study suggests that policy makers looking at the effect
 
 The contribution to the literature of this paper is suggested to be twofold.
 Firstly, the paper spends a sizable amount of time defining a suitable estimate for life years left.
-The authors suggest machine learning for time to event studies, looking beyond age and sex as determinants for life expectancy  to complement existing methods and for applications in economics. 
+The authors suggest machine learning for time to event studies, looking beyond age and sex as determinants for life expectancy to complement existing methods and for applications in economics. 
 Specifically, this paper uses two machine learning methods namely survival random forest and a cox-lasso model.
 Secondly, this paper uses this proposed generic machine learning for inference on heterogeneous treatment effects to a quasi-experimental study.
 
@@ -182,7 +179,7 @@ Model evaluation would have been a substantial improvement to this paper because
 Model evaluation for classical classification tasks and survival tasks differentiate. 
 To accommodate the right censored nature of our data (50 % of the individuals in our sample don't die within the time frame), we would use methods employing an estimation for our right censored observations e.g. via inverse weighted propensity estimates (IWPC).
 Not going into too much detail, we could have used the concordance statistics (in short c-statistics) or a brier score here to evaluate the performance. 
-For more robustness, usually one  would compare performance for the different thresholds within the data (typically: 25, 50, 75 percentage quantiles).
+For more robustness, usually one would compare performance for the different thresholds within the data (typically: 25, 50, 75 percentage quantiles).
 Suppose the prediction would have been at either one of the extremes, such an extremely high or low MSE, it would have been interesting to see and would have allowed some more insights into the relationship of different predictors.
 
 ## Added Value of Survival Analysis via Machine Learning 
@@ -242,7 +239,7 @@ Here, we simple use a single year lag which is somewhat naive, because we don't 
 This is a potential source of miss-specification. 
 Including an analysis on this issue in the appendix, would have allowed for more transparency. 
 
-**Atmospheric science models:** As suggested by the authors themselves, due to the vast number of observations and data, it is computationally  not feasible to apply advanced tools from atmospheric science models here. 
+**Atmospheric science models:** As suggested by the authors themselves, due to the vast number of observations and data, it is computationally not feasible to apply advanced tools from atmospheric science models here. 
 Henceforth one can only speculate how these models would have performed.
 
 # Conclusion 
